@@ -1,0 +1,147 @@
+<div class="container">
+  <div class="cartoons">
+    <div>
+      <img src="assets/img/cartoon1.jpg" alt="cartoon1"/>
+      <div
+        cdkDropList
+        #cartoonList1="cdkDropList"
+        [cdkDropListData]="cartoonWords[0]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[0]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon2.jpg" alt="cartoon2"/>
+      <div
+        cdkDropList
+        #cartoonList2="cdkDropList"
+        [cdkDropListData]="cartoonWords[1]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[1]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon3.jpg" alt="cartoon3"/>
+      <div
+        cdkDropList
+        #cartoonList3="cdkDropList"
+        [cdkDropListData]="cartoonWords[2]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[2]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon4.jpg" alt="cartoon4"/>
+      <div
+        cdkDropList
+        #cartoonList4="cdkDropList"
+        [cdkDropListData]="cartoonWords[3]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[3]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon5.jpg" alt="cartoon5"/>
+      <div
+        cdkDropList
+        #cartoonList5="cdkDropList"
+        [cdkDropListData]="cartoonWords[4]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[4]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon6.jpg" alt="cartoon6"/>
+      <div
+        cdkDropList
+        #cartoonList6="cdkDropList"
+        [cdkDropListData]="cartoonWords[5]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[5]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon7.jpg" alt="cartoon7"/>
+      <div
+        cdkDropList
+        #cartoonList7="cdkDropList"
+        [cdkDropListData]="cartoonWords[6]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[6]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon8.jpg" alt="cartoon8"/>
+      <div
+        cdkDropList
+        #cartoonList8="cdkDropList"
+        [cdkDropListData]="cartoonWords[7]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[7]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon9.jpg" alt="cartoon9"/>
+      <div
+        cdkDropList
+        #cartoonList9="cdkDropList"
+        [cdkDropListData]="cartoonWords[8]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[8]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/cartoon10.jpg" alt="cartoon10"/>
+      <div
+        cdkDropList
+        #cartoonList10="cdkDropList"
+        [cdkDropListData]="cartoonWords[9]"
+        [cdkDropListConnectedTo]="[wordList]"
+        class="cartoonlist"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate">
+        <div *ngFor="let word of cartoonWords[9]" class="word" cdkDrag>{{word}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="words">
+    <div
+      cdkDropList
+      #wordList="cdkDropList"
+      [cdkDropListData]="words"
+      [cdkDropListConnectedTo]="[cartoonList1,cartoonList2,cartoonList3,cartoonList4,cartoonList5,cartoonList6,cartoonList7,cartoonList8,cartoonList9,cartoonList10]"
+      class="wordlist"
+      (cdkDropListDropped)="drop($event)">
+      <span *ngFor="let word of words" class="word" class="word" cdkDrag>{{word}}</span>
+    </div>
+  </div>
+</div>
+

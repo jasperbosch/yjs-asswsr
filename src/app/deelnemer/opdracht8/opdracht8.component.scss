@@ -1,0 +1,31 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  max-width: 647px;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.head, .imgsrc, .imgdest{
+  display: flex;
+}
+
+.img, .destination {
+  border:1px solid blue;
+  border-radius: 4px;
+}
+
+img{
+  width:150px;
+  padding:5px;
+}
+
+.destination{
+  min-height: 200px;
+  width: 160px;
+}
+
+.imgsrc{
+  min-height: 200px;
+}
