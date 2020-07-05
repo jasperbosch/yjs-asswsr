@@ -36,16 +36,19 @@ export class Opdracht4Component implements OnInit, AfterViewInit {
     dots.sendToBack();
 
 
-    const tekst = new paper.PointText(new paper.Point(600, 300));
+    const tekstX = paper.view.center.x - (1050 / 2);
+    const tekst = new paper.PointText(new paper.Point(tekstX, 300));
+    tekst.name = 'autisme';
     tekst.content = 'autisme';
     tekst.fontSize = 300;
     tekst.strokeColor = new paper.Color(0, 0, 0);
     tekst.strokeWidth = 5;
     tekst.fillColor = new paper.Color(256, 256, 256);
-    tekst.point = new paper.Point(paper.view.center.x - (tekst.bounds.width / 2), 300);
+    // tekst.point = new paper.Point(paper.view.center.x - (tekst.bounds.width / 2), 300);
+    // tekst.selected = true;
     tekst.sendToBack();
 
-    this.flipOn = tekst.bounds.y + (tekst.bounds.height / 2);
+    this.flipOn = tekst.bounds.y + (tekst.bounds.height / 2) + 100;
 
     this.cursor = new paper.Path.Circle({
       center: new paper.Point(10, 10),
@@ -72,14 +75,18 @@ export class Opdracht4Component implements OnInit, AfterViewInit {
   }
 
   onMouseDown(event: any): void {
-    this.myPath = new paper.Path();
-    this.myPath.strokeColor = 'black';
-    this.myPath.strokeWidth = 5;
+    if (event.target.name === 'autisme') {
+      this.myPath = new paper.Path();
+      this.myPath.strokeColor = 'black';
+      this.myPath.strokeWidth = 5;
+    }
   }
 
   onMouseDrag(event: any): void {
-    const y = this.flipOn + (this.flipOn - event.point.y) - 75; // Ik weet niet war deze 75 vandaan komt...
-    this.myPath.add(event.point.x, y);
+    if (event.target.name === 'autisme') {
+      const y = this.flipOn + (this.flipOn - event.point.y) - 75; // Ik weet niet waar deze 75 vandaan komt...
+      this.myPath.add(event.point.x, y);
+    }
   }
 
 
