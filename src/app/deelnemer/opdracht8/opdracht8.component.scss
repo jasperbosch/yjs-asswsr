@@ -1,7 +1,7 @@
 .container{
   display: flex;
   flex-direction: column;
-  max-width: 647px;
+  max-width: 447px;
   margin: 20px auto;
   background-color: white;
   border-radius: 4px;
@@ -17,15 +17,15 @@
 }
 
 img{
-  width:150px;
+  width:100px;
   padding:5px;
 }
 
 .destination{
-  min-height: 200px;
-  width: 160px;
+  min-height: 150px;
+  width: 110px;
 }
 
 .imgsrc{
-  min-height: 200px;
+  min-height: 150px;
 }
