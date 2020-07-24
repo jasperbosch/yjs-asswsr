@@ -1,33 +1,56 @@
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {CountdownComponent} from 'ngx-countdown';
+import {interval} from 'rxjs';
+import {AsswsrService} from '../../services/asswsr.service';
 
 @Component({
   selector: 'app-opdracht8',
   templateUrl: './opdracht8.component.html',
   styleUrls: ['./opdracht8.component.scss']
 })
-export class Opdracht8Component {
+export class Opdracht8Component implements OnInit, OnDestroy {
 
-  imgSrc = ['OK5', 'OK6', 'OK7', 'OK8'];
+  countdown = 5 * 60;
+  progress;
+  subs;
 
-  imgDest = [[], [], [], []];
+  @ViewChild('cd', {static: false}) private countdownC: CountdownComponent;
 
-  drop(event: CdkDragDrop<string[]>): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+  constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
+    this.asswsr.studentStartOpdracht(8);
+  }
+
+  ngOnInit(): void {
+    this.subs = interval(100).subscribe(result => {
+      this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subs) {
+      this.subs.unsubscribe();
     }
   }
 
-  /**
-   * Maximaal 2 woorden per cartoon.
-   */
-  evenPredicate(item: CdkDrag, list: CdkDropList): boolean {
-    return list.data.length < 1;
+  handleEvent(event): void {
+    if (event.action === 'done') {
+      this.sendAnswer();
+      this.router.navigate(['deelnemer', 'corridor']);
+    }
   }
+
+  klaar(): void {
+    this.sendAnswer();
+    // redirect
+    this.router.navigate(['deelnemer', 'opdracht9']);
+  }
+
+  private sendAnswer(): void {
+    // send time to server
+    const tijd = this.countdown - (this.countdownC.left / 1000);
+    this.asswsr.sendAnswer(8, tijd, undefined);
+  }
+
 
 }

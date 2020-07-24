@@ -1,7 +1,15 @@
-<canvas id="myCanvas" resize
-        #myCanvas
-        (mousemove)="onMouseMove($event)"
-        (mousedown)="onMouseDown($event)"
-        (mousedrag)="onMouseDrag($event)"
-></canvas>
-
+<div class="content" [style.maxWidth.px]="width + 25" [style.height.px]="height + 25">
+  <canvas id="myCanvas"
+          [style.width.px]="width"
+          [style.height.px]="height"
+          #myCanvas
+  ></canvas>
+  <img src="assets/img/Lowietje.png" alt="" id="lowietje" [style.display]="'none'">
+  <div class="charms">
+    <img width="50" height="50" src="assets/img/zoomIn.png" class="zoomIn" (click)="zoomIn()"/>
+    <img width="50" height="50" src="assets/img/zoomOut.png" class="zoomOut" (click)="zoomOut()"/>
+  </div>
+</div>
+<button (click)="klaar()" class="klaar">Klaar</button>
+<countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
+<app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>

@@ -1,62 +1,55 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {CountdownComponent} from 'ngx-countdown';
+import {interval} from 'rxjs';
+import {AsswsrService} from '../../services/asswsr.service';
 
 @Component({
   selector: 'app-opdracht1',
   templateUrl: './opdracht1.component.html',
   styleUrls: ['./opdracht1.component.scss']
 })
-export class Opdracht1Component implements OnInit, AfterViewInit {
+export class Opdracht1Component implements OnInit, OnDestroy {
 
-  prevEvent;
-  baseX;
-  baseY;
+  countdown = 3 * 60;
+  progress;
+  subs;
 
-  @ViewChild('keyhole') keyhole: ElementRef;
-  @ViewChild('bathroom') bathroom: ElementRef;
+  @ViewChild('cd', {static: false}) private countdownC: CountdownComponent;
 
-  constructor() {
+  constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
+    this.asswsr.studentStartOpdracht(1);
   }
+
 
   ngOnInit(): void {
+    this.subs = interval(100).subscribe(result => {
+      this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
+    });
   }
 
-  ngAfterViewInit(): void {
-    this.bathroom.nativeElement.style.display = 'block';
-    this.keyhole.nativeElement.style.width = this.bathroom.nativeElement.style.width;
-  }
-
-
-  onMouseMove(event: MouseEvent): void {
-    if (this.prevEvent) {
-      if (this.prevEvent !== event) {
-        // var x = parseInt(document.querySelector('.keyhole').style.backgroundPositionX);
-        // x = x + event.screenX - prevEvent.screenX;
-        let x = event.x - this.baseX - 1000;
-        if (x < -960) {
-          x = -960;
-        }
-        if (x > -230) {
-          x = -230;
-        }
-        this.keyhole.nativeElement.style.backgroundPositionX = x + 'px';
-
-        // var y = parseInt(document.querySelector('.keyhole').style.backgroundPositionY);
-        // y = y + event.screenY - prevEvent.screenY;
-        let y = event.y - this.baseY - 1000;
-        if (y < -960) {
-          y = -960;
-        }
-        if (y > -430) {
-          y = -430;
-        }
-        this.keyhole.nativeElement.style.backgroundPositionY = y + 'px';
-      }
-    } else {
-      const c = document.querySelector('.img').getBoundingClientRect();
-      this.baseX = c.x;
-      this.baseY = c.y;
+  ngOnDestroy(): void {
+    if (this.subs) {
+      this.subs.unsubscribe();
     }
-    this.prevEvent = event;
   }
 
+  handleEvent(event): void {
+    if (event.action === 'done') {
+      this.sendAnswer();
+      this.router.navigate(['deelnemer', 'corridor']);
+    }
+  }
+
+  klaar(): void {
+    this.sendAnswer();
+    // redirect
+    this.router.navigate(['deelnemer', 'corridor']);
+  }
+
+  private sendAnswer(): void {
+    // send time to server
+    const tijd = this.countdown - (this.countdownC.left / 1000);
+    this.asswsr.sendAnswer(1, tijd, undefined);
+  }
 }

@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="head">
+    <div class="img">
+      <img src="assets/img/OK1.jpg" alt="OK1">
+    </div>
+    <div class="img">
+      <img src="assets/img/OK2.jpg" alt="OK2">
+    </div>
+    <div class="img">
+      <img src="assets/img/OK3.jpg" alt="OK3">
+    </div>
+    <div class="img">
+      <img src="assets/img/OK4.jpg" alt="OK4">
+    </div>
+  </div>
+
+  <div class="imgdest">
+    <div
+      cdkDropList
+      #img1="cdkDropList"
+      [cdkDropListData]="imgDest[0]"
+      [cdkDropListConnectedTo]="[imgList,img2,img3,img4]"
+      class="destination"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="evenPredicate">
+      <div *ngFor="let image of imgDest[0]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+    </div>
+    <div
+      cdkDropList
+      #img2="cdkDropList"
+      [cdkDropListData]="imgDest[1]"
+      [cdkDropListConnectedTo]="[imgList,img1,img3,img4]"
+      class="destination"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="evenPredicate">
+      <div *ngFor="let image of imgDest[1]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+    </div>
+    <div
+      cdkDropList
+      #img3="cdkDropList"
+      [cdkDropListData]="imgDest[2]"
+      [cdkDropListConnectedTo]="[imgList,img1,img2,img4]"
+      class="destination"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="evenPredicate">
+      <div *ngFor="let image of imgDest[2]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+    </div>
+    <div
+      cdkDropList
+      #img4="cdkDropList"
+      [cdkDropListData]="imgDest[3]"
+      [cdkDropListConnectedTo]="[imgList,img1,img2,img3]"
+      class="destination"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="evenPredicate">
+      <div *ngFor="let image of imgDest[3]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+    </div>
+  </div>
+
+  <div
+    cdkDropList
+    #imgList="cdkDropList"
+    [cdkDropListData]="imgSrc"
+    [cdkDropListConnectedTo]="[img1,img2,img3,img4]"
+    class="imgsrc"
+    (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let image of imgSrc" class="word" class="img" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+  </div>
+</div>
+<button (click)="controleer()" class="controleer" *ngIf="!allesOK">Controleer</button>
+<button (click)="klaar()" class="klaar" *ngIf="allesOK">Klaar</button>
+<countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
+<app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>
+<div #svg></div>

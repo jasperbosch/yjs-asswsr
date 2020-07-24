@@ -1,92 +1,134 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {CountdownComponent} from 'ngx-countdown';
+
 import * as paper from 'paper';
+import {interval} from 'rxjs';
+import {AsswsrService} from '../../services/asswsr.service';
 
 @Component({
   selector: 'app-opdracht4',
   templateUrl: './opdracht4.component.html',
   styleUrls: ['./opdracht4.component.scss']
 })
-export class Opdracht4Component implements OnInit, AfterViewInit {
+export class Opdracht4Component implements OnInit, AfterViewInit, OnDestroy {
+
+  countdown = 7 * 60;
+  progress;
+  subs;
 
   @ViewChild('myCanvas') myCanvas: ElementRef;
 
-  cursor: paper.Path.Circle;
+  zoom = 1;
+  zoomDelta = 0.05;
+  width = 691;
+  height = 953;
 
-  flipOn = 260;
+  cursor;
   myPath;
+  raster;
 
-  constructor() {
+  @ViewChild('cd', {static: false}) private countdownC: CountdownComponent;
+
+  constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
+    this.asswsr.studentStartOpdracht(4);
   }
 
   ngOnInit(): void {
+    this.subs = interval(100).subscribe(result => {
+      this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
+  }
+
+
+  handleEvent(event): void {
+    if (event.action === 'done') {
+      this.sendAnswer();
+      this.router.navigate(['deelnemer', 'corridor']);
+    }
   }
 
   ngAfterViewInit(): void {
     paper.setup(this.myCanvas.nativeElement);
     paper.view.autoUpdate = true;
 
-    const point = new paper.Point(710, 30);
-    const dots = new paper.PointText(point);
-    dots.content = '. . . . . .';
-    dots.fontSize = 270;
-    dots.strokeColor = new paper.Color(0, 0, 0);
-    dots.strokeWidth = 5;
-    dots.fillColor = new paper.Color(256, 256, 256);
-    dots.point = new paper.Point(paper.view.center.x - (dots.bounds.width / 2), 30);
-    dots.sendToBack();
+    const topLeft = new paper.Point(0, 0);
 
+    this.raster = new paper.Raster('lowietje');
+    this.raster.position = new paper.Point(topLeft.x + (691 / 2), 475);
+    this.raster.size = new paper.Size(this.width, this.height);
 
-    const tekstX = paper.view.center.x - (1050 / 2);
-    const tekst = new paper.PointText(new paper.Point(tekstX, 300));
-    tekst.name = 'autisme';
-    tekst.content = 'autisme';
-    tekst.fontSize = 300;
-    tekst.strokeColor = new paper.Color(0, 0, 0);
-    tekst.strokeWidth = 5;
-    tekst.fillColor = new paper.Color(256, 256, 256);
-    // tekst.point = new paper.Point(paper.view.center.x - (tekst.bounds.width / 2), 300);
-    // tekst.selected = true;
-    tekst.sendToBack();
-
-    this.flipOn = tekst.bounds.y + (tekst.bounds.height / 2) + 100;
 
     this.cursor = new paper.Path.Circle({
       center: new paper.Point(10, 10),
-      strokeColor: 'black',
-      fillColor: 'gray',
+      strokeColor: 'red',
+      fillColor: 'red',
       radius: 3,
     });
 
-    tekst.onMouseDrag = this.onMouseDrag.bind(this);
-    tekst.onMouseMove = this.onMouseMove.bind(this);
-    tekst.onMouseDown = this.onMouseDown.bind(this);
+    this.myPath = new paper.Path();
+
+    paper.view.onMouseMove = this.mouseMove.bind(this);
+    paper.view.onMouseDown = this.mouseDown.bind(this);
+    paper.view.onMouseDrag = this.mouseDrag.bind(this);
 
     this.cursor.bringToFront();
+
+    paper.view.zoom = this.zoom;
   }
 
+  mouseMove(event): void {
+    // this.cursor.position = new paper.Point(event.point.x * (1 / this.zoom), event.point.y * (1 / this.zoom));
+    this.cursor.position = new paper.Point(event.point.x, event.point.y);
+  }
 
-  onMouseMove(event: any): void {
-    if (event.y) {
-      const y = this.flipOn + (this.flipOn - event.y);
-      if (this.cursor) {
-        this.cursor.position = new paper.Point(event.x, y);
-      }
+  mouseDown(event): void {
+    this.myPath.remove();
+
+    this.myPath = new paper.Path();
+    this.myPath.strokeColor = 'red';
+    this.myPath.strokeWidth = 5;
+  }
+
+  mouseDrag(event: any): void {
+    this.myPath.add(event.point.x, event.point.y);
+  }
+
+  zoomIn(): void {
+    if (this.zoom <= 1.30) {
+      this.zoom = this.zoom + this.zoomDelta;
+      this.height = this.height * this.zoom;
+      this.width = this.width * this.zoom;
+      console.log(this.zoom);
     }
   }
 
-  onMouseDown(event: any): void {
-    if (event.target.name === 'autisme') {
-      this.myPath = new paper.Path();
-      this.myPath.strokeColor = 'black';
-      this.myPath.strokeWidth = 5;
+  zoomOut(): void {
+    if (this.zoom - this.zoomDelta >= 1) {
+      this.height = this.height * (1 / this.zoom);
+      this.width = this.width * (1 / this.zoom);
+      this.zoom = this.zoom - this.zoomDelta;
     }
   }
 
-  onMouseDrag(event: any): void {
-    if (event.target.name === 'autisme') {
-      const y = this.flipOn + (this.flipOn - event.point.y) - 75; // Ik weet niet waar deze 75 vandaan komt...
-      this.myPath.add(event.point.x, y);
-    }
+  klaar(): void {
+    this.sendAnswer();
+    // redirect
+    this.router.navigate(['deelnemer', 'opdracht5']);
+  }
+
+  private sendAnswer(): void {
+    // send time to server
+    // const answer = (this.myCanvas.nativeElement as HTMLCanvasElement).toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    const answer = (this.myCanvas.nativeElement as HTMLCanvasElement).toDataURL('image/png').replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+    const tijd = this.countdown - (this.countdownC.left / 1000);
+    this.asswsr.sendAnswer(4, tijd, answer);
   }
 
 

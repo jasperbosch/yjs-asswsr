@@ -1,41 +1,170 @@
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {CountdownComponent} from 'ngx-countdown';
+import * as paper from 'paper';
+import {interval} from 'rxjs';
+import {AsswsrService} from '../../services/asswsr.service';
+import {CHECKMARK_SVG} from '../shared/checkmark.const';
+
 
 @Component({
   selector: 'app-opdracht5',
   templateUrl: './opdracht5.component.html',
   styleUrls: ['./opdracht5.component.scss']
 })
-export class Opdracht5Component implements OnInit {
+export class Opdracht5Component implements OnInit, AfterViewInit, OnDestroy {
 
-  words = ['STRIP', 'WERK', 'JONGEREN', 'STRIJK', 'LEES', 'SCHEMA', 'DRAAI', 'KOP', 'GROEP', 'ARM',
-    'POT', 'DAG', 'HANG', 'GETAL', 'VERHAAL', 'TELEVISIE', 'PRIKKEL', 'KWARTET', 'CEL', 'VROUW',
-    'VOETBAL', 'BAD', 'BOEK', 'LOOD', 'LOPER', 'DELING', 'HAND', 'TAFEL', 'MEESTER'];
+  countdown = 7 * 60;
+  progress;
+  subs;
+  allesOK = false;
 
-  cartoonWords = [];
+  @ViewChild('myCanvas') myCanvas: ElementRef;
+  @ViewChild('puzzle_image') puzzleImage: ElementRef;
+  @ViewChild('cd', {static: false}) private countdownC: CountdownComponent;
+  @ViewChild('svg') svgRef: ElementRef;
+
+  imgWidth = 800;
+  imgHeight = 582;
+  marge = 20;
+
+  rasters: paper.Raster[] = [];
+
+  constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
+    this.asswsr.studentStartOpdracht(5);
+  }
 
   ngOnInit(): void {
-    for (let i = 0; i < 10; i++) {
-      this.cartoonWords.push([]);
+    this.subs = interval(100).subscribe(result => {
+      this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subs) {
+      this.subs.unsubscribe();
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+
+  handleEvent(event): void {
+    if (event.action === 'done') {
+      this.sendAnswer();
+      this.router.navigate(['deelnemer', 'corridor']);
     }
   }
 
-  /**
-   * Maximaal 2 woorden per cartoon.
-   */
-  evenPredicate(item: CdkDrag, list: CdkDropList): boolean {
-    return list.data.length < 2;
+  ngAfterViewInit(): void {
+    paper.setup(this.myCanvas.nativeElement);
+    paper.view.autoUpdate = true;
+
+    this.rasters.push(new paper.Raster('puzzel1'));
+    this.rasters.push(new paper.Raster('puzzel2'));
+    this.rasters.push(new paper.Raster('puzzel3'));
+    this.rasters.push(new paper.Raster('puzzel4'));
+    this.rasters.push(new paper.Raster('puzzel5'));
+    this.rasters.push(new paper.Raster('puzzel6'));
+    this.rasters.push(new paper.Raster('puzzel7'));
+
+    const topLeft = new paper.Point(paper.view.center.x - (this.imgWidth / 2), 20);
+    const rectSize = new paper.Size(this.imgWidth, this.imgHeight);
+    const rect = new paper.Rectangle(topLeft, rectSize);
+    const path = new paper.Path.Rectangle(rect);
+    path.fillColor = new paper.Color('#e9e9ff');
+    path.sendToBack();
+
+    this.rasters[0].data = {x: 124 + topLeft.x, y: 140};
+    this.rasters[1].data = {x: 172 + topLeft.x, y: 427};
+    this.rasters[2].data = {x: 675 + topLeft.x, y: 466};
+    this.rasters[3].data = {x: 674 + topLeft.x, y: 179};
+    this.rasters[4].data = {x: 412 + topLeft.x, y: 125};
+    this.rasters[5].data = {x: 438 + topLeft.x, y: 470};
+    this.rasters[6].data = {x: 377 + topLeft.x, y: 288};
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let x = 0; x < this.rasters.length; x++) {
+      this.rasters[x].position = new paper.Point(
+        Math.random() * ((paper.view.center.x - 100) * 2) + 100,
+        Math.random() * ((paper.view.center.y - 100) * 2) + 100
+      );
+      const rotation = Math.floor(Math.random() * 4) * 90;
+      this.rasters[x].rotate(rotation);
+    }
+
+
+    paper.project.activeLayer.children[0].selected = true;
+
+    const kids = paper.project.activeLayer.children;
+    // tslint:disable-next-line:prefer-for-of
+    for (let x = 0; x < kids.length; x++) {
+      if (kids[x] instanceof paper.Raster) {
+        kids[x].onMouseDown = this.onMouseDown.bind(this);
+        kids[x].onDoubleClick = this.onDoubleClick.bind(this);
+        kids[x].onMouseDrag = this.onMouseDrag.bind(this);
+        kids[x].onMouseUp = this.onMouseUp.bind(this);
+      }
+    }
+
   }
+
+  onMouseUp(event): void {
+    if (Math.abs(event.target.rotation) === 0) {
+      if (Math.abs(event.point.x - event.target.data.x) < this.marge &&
+        Math.abs(event.point.y - event.target.data.y) < this.marge) {
+        // Trek het puzzelstuk naar de juiste positie.
+        event.target.position = new paper.Point(event.target.data.x, event.target.data.y);
+        // Controleer of alle puzzelstukjes op hun plaats liggen.
+        this.checkPuzzle();
+        event.target.selected = false;
+      }
+    }
+  }
+
+  checkPuzzle(): void {
+    this.allesOK = true;
+    this.rasters.forEach(raster => {
+      if ((raster.data.x * 10) !== Math.round(raster.position.x * 10) || (raster.data.y * 10) !== Math.round(raster.position.y * 10)) {
+        this.allesOK = false;
+      }
+    });
+    if (this.allesOK) {
+      this.svgRef.nativeElement.innerHTML = CHECKMARK_SVG;
+    }
+  }
+
+  onMouseDrag(event): void {
+    event.target.position = event.point;
+  }
+
+  onMouseDown(event): void {
+    this.unselectAll();
+    event.target.selected = true;
+    event.target.bringToFront();
+  }
+
+  onDoubleClick(event): void {
+    event.target.rotate(90);
+  }
+
+  unselectAll(): void {
+    const kids = paper.project.activeLayer.children;
+    // tslint:disable-next-line:prefer-for-of
+    for (let x = 0; x < kids.length; x++) {
+      kids[x].selected = false;
+    }
+  }
+
+  klaar(): void {
+    this.sendAnswer();
+    // redirect
+    this.router.navigate(['deelnemer', 'opdracht6']);
+  }
+
+  private sendAnswer(): void {
+    // send time to server
+    const tijd = this.countdown - (this.countdownC.left / 1000);
+    this.asswsr.sendAnswer(5, tijd, this.allesOK);
+  }
+
 
 }

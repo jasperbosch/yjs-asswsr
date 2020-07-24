@@ -32,6 +32,10 @@
             ],
             "scripts": [
               "node_modules/paper/dist/paper-full.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "paper",
+              "rxjs/internal/observable/dom/WebSocketSubject"
             ]
           },
           "configurations": {

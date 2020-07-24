@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {AsswsrService} from './services/asswsr.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'yjs-asswsr';
+
+  userName;
+  tutor = false;
+
+  constructor(private readonly asswsr: AsswsrService) {
+
+    asswsr.userName.subscribe(name => {
+      this.userName = name;
+      this.tutor = name === 'tutor';
+    });
+
+    asswsr.getUser();
+  }
 }

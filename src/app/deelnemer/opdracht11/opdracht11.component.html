@@ -1,0 +1,6 @@
+<div>
+  <img src="assets/img/wcrol.png" alt="">
+</div>
+<button (click)="klaar()" class="klaar">Klaar</button>
+<countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
+<app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>

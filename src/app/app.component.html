@@ -1,9 +1,19 @@
 <nav>
-  <a routerLink="deelnemer/opdracht1" routerLinkActive="active">Opdracht 1</a>
-  <a routerLink="deelnemer/opdracht4" routerLinkActive="active">Opdracht 4</a>
-  <a routerLink="deelnemer/opdracht5" routerLinkActive="active">Opdracht 5</a>
-  <a routerLink="deelnemer/opdracht7" routerLinkActive="active">Opdracht 7</a>
-  <a routerLink="deelnemer/opdracht8" routerLinkActive="active">Opdracht 8</a>
+  <span *ngIf="userName && !tutor">
+    <a routerLink="deelnemer/opdracht1" routerLinkActive="active">Opdracht 1</a>
+    <a routerLink="deelnemer/opdracht2" routerLinkActive="active">Opdracht 2</a>
+    <a routerLink="deelnemer/opdracht3" routerLinkActive="active">Opdracht 3</a>
+    <a routerLink="deelnemer/opdracht4" routerLinkActive="active">Opdracht 4</a>
+    <a routerLink="deelnemer/opdracht5" routerLinkActive="active">Opdracht 5</a>
+    <a routerLink="deelnemer/opdracht6" routerLinkActive="active">Opdracht 6</a>
+    <a routerLink="deelnemer/opdracht7" routerLinkActive="active">Opdracht 7</a>
+    <a routerLink="deelnemer/opdracht8" routerLinkActive="active">Opdracht 8</a>
+    <a routerLink="deelnemer/opdracht9" routerLinkActive="active">Opdracht 9</a>
+    <a routerLink="deelnemer/opdracht10" routerLinkActive="active">Opdracht 10</a>
+    <a routerLink="deelnemer/opdracht11" routerLinkActive="active">Opdracht 11</a>
+  </span>
 </nav>
 
 <router-outlet></router-outlet>
+
+<div class="username">{{userName}}</div>

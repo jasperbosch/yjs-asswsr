@@ -1,0 +1,78 @@
+.container {
+  z-index: 1000;
+  position: fixed;
+  height: calc(100vh - 150px);
+  max-height: 642px;
+  width: 100vw;
+}
+
+
+.badkamer {
+  width: 815px;
+  height: 612px;
+  overflow: hidden;
+  margin: 20px auto;
+  padding: 15px;
+  display: flex;
+}
+
+.img {
+  z-index: 0;
+}
+
+.keyhole {
+  width: 815px;
+  height: 612px;
+  overflow: hidden;
+  background: url("../../../assets/img/hole.png") no-repeat;
+  //background-size: 1800px 1800px;
+  z-index: 5;
+  position: absolute;
+  cursor: none;
+
+}
+
+.invoer {
+  padding: 10px;
+  position: fixed;
+  top: 700px;
+  width: 100%;
+
+  .question {
+    width: 350px;
+    margin: 0 auto;
+  }
+
+  .answers {
+    width: 815px;
+    margin: 0 auto;
+  }
+
+  button {
+    font-size: 0.6rem;
+    color: #006666;
+    border: solid 1px #006666;
+    padding: 5px 5px;
+    margin: 0 5px;
+    border-radius: 4px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #006666;
+      color: #ff9900;
+      box-shadow: 5px 5px gray;
+    }
+  }
+
+  .word {
+    background-color: silver;
+    border-radius: 4px;
+    padding: 3px;
+    margin: 2px;
+    white-space: nowrap;
+
+    fa-icon {
+      color: green;
+    }
+  }
+}

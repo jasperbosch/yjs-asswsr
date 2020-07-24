@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="badkamer" (mousemove)="onMouseMove($event)">
+    <div class="img">
+      <img src="assets/img/badkamer.PNG" alt="badkamer" style="display: none;" #bathroom>
+    </div>
+    <div class="keyhole" style="background-position-x: -600px; background-position-y: -700px;" #keyhole></div>
+  </div>
+</div>
+<div class="invoer">
+  <div class="question">
+    <label for="item">Wat ziet u? (1 woord)</label>
+    <input type="text" name="item" id="item" [(ngModel)]="item" (keyup.enter)="addItem()">
+    <button (click)="addItem()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
+  <div class="answers">
+    <span *ngFor="let answer of answers" class="word">
+      {{answer}}
+      <fa-icon [icon]="faCheck" *ngIf="words.indexOf(answer.toLowerCase())>=0"></fa-icon>
+    </span>
+  </div>
+</div>
+<button (click)="klaar()" class="klaar">Klaar</button>
+<countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
+<app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>

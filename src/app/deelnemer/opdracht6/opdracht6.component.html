@@ -1,0 +1,9 @@
+<canvas id="myCanvas" resize
+        #myCanvas
+        (mousemove)="onMouseMove($event)"
+        (mousedown)="onMouseDown($event)"
+        (mousedrag)="onMouseDrag($event)"
+></canvas>
+<button (click)="klaar()" class="klaar">Klaar</button>
+<countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
+<app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>

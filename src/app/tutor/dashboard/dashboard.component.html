@@ -1,0 +1,41 @@
+<div class="nav">
+  <button (click)="start(1)">Start Opdracht 1</button>
+  <button (click)="start(2)">Start Opdracht 2</button>
+  <button (click)="start(3)">Start Opdracht 3</button>
+  <button (click)="start(4)">Start Opdracht 4</button>
+  <button (click)="start(5)">Start Opdracht 5</button>
+  <button (click)="start(6)">Start Opdracht 6</button>
+  <button (click)="start(7)">Start Opdracht 7</button>
+  <button (click)="start(8)">Start Opdracht 8</button>
+  <button (click)="start(9)">Start Opdracht 9</button>
+  <button (click)="start(10)">Start Opdracht 10</button>
+  <button (click)="start(0)">Zet in de wacht</button>
+  <button (click)="reset()">Reset</button>
+</div>
+<table>
+  <thead>
+  <tr>
+    <th>Student</th>
+    <td>Wacht</td>
+    <td *ngFor="let i of range">Opdracht {{i}}</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let student of students">
+    <td [ngClass]="{'green':student.connection==='open','red':student.connection!=='open'}">{{student.name}}</td>
+    <td [ngClass]="{'active':student.currPage === 0}"></td>
+    <td *ngFor="let i of range" [ngClass]="{'active':student.currPage === i}">
+      <span *ngIf="student.answers && student.answers[i]">{{student.answers[i].tijd}} sec
+        <span *ngIf="i===2 && student.answers[i].answer.alfabetShown"><fa-icon [icon]="faCheck" title="handalfabet is getoond"></fa-icon></span>
+        <span *ngIf="i===3 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Antwoord: '+student.answers[i].answer"></fa-icon></span>
+        <span *ngIf="i===4 && student.answers[i].answer"><a [href]="student.answers[i].answer" target="answer"><fa-icon [icon]="faCheck" [title]="'Click for answer'"></fa-icon></a></span>
+        <span *ngIf="i===5 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Puzzel opgelost'"></fa-icon></span>
+        <span *ngIf="i===6 && student.answers[i].answer"><a [href]="student.answers[i].answer" target="answer"><fa-icon [icon]="faCheck" [title]="'Click for answer'"></fa-icon></a></span>
+        <span *ngIf="i===7 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Cartoons opgelost'"></fa-icon></span>
+        <span *ngIf="i===9 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Gevonden items'"></fa-icon>({{student.answers[i].answer}})</span>
+        <span *ngIf="i===10 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Gebaren opgelost'"></fa-icon></span>
+      </span>
+    </td>
+  </tr>
+  </tbody>
+</table>

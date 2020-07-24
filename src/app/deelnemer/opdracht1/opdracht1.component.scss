@@ -1,32 +1,5 @@
-.container {
-  z-index: 1000;
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
+div{
+  width: 400px;
+  margin: 0 auto;
 }
 
-
-.badkamer {
-  width: 815px;
-  height: 612px;
-  overflow: hidden;
-  margin: 20px auto;
-  padding: 15px;
-  display: flex;
-}
-
-.img {
-  z-index: 0;
-}
-
-.keyhole {
-  width: 815px;
-  height: 612px;
-  overflow: hidden;
-  background: url("../../../assets/img/hole.png") no-repeat;
-  background-size: 2000px 2000px;
-  z-index: 5;
-  position: absolute;
-  cursor: none;
-
-}

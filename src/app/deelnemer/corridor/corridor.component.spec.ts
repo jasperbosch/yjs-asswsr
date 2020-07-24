@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NaamInvoerComponent } from './naam-invoer.component';
+import { CorridorComponent } from './corridor.component';
 
-describe('NaamInvoerComponent', () => {
-  let component: NaamInvoerComponent;
-  let fixture: ComponentFixture<NaamInvoerComponent>;
+describe('CorridorComponent', () => {
+  let component: CorridorComponent;
+  let fixture: ComponentFixture<CorridorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NaamInvoerComponent ]
+      declarations: [ CorridorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NaamInvoerComponent);
+    fixture = TestBed.createComponent(CorridorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

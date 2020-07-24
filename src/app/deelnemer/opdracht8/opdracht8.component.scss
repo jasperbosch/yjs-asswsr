@@ -1,31 +1,4 @@
-.container{
-  display: flex;
-  flex-direction: column;
-  max-width: 447px;
-  margin: 20px auto;
-  background-color: white;
-  border-radius: 4px;
-}
-
-.head, .imgsrc, .imgdest{
-  display: flex;
-}
-
-.img, .destination {
-  border:1px solid blue;
-  border-radius: 4px;
-}
-
-img{
-  width:100px;
-  padding:5px;
-}
-
-.destination{
-  min-height: 150px;
-  width: 110px;
-}
-
-.imgsrc{
-  min-height: 150px;
+div{
+  width: 600px;
+  margin: 10px auto;
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AsswsrService} from '../services/asswsr.service';
 
 @Component({
   selector: 'app-naam-invoer',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NaamInvoerComponent implements OnInit {
 
-  constructor() { }
+  naam: string;
+
+  constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
+
+    asswsr.userName.subscribe(name => {
+      if (name === 'tutor') {
+        this.router.navigate(['tutor', 'dashboard']);
+      } else {
+        this.router.navigate(['deelnemer', 'corridor']);
+      }
+    });
+
+  }
 
   ngOnInit(): void {
   }
 
+  verzend(): void {
+    this.asswsr.sendName(this.naam);
+  }
 }

@@ -1,15 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+body {
   background-color: #ff9900;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 
-app-root{
+app-root {
   z-index: 1000;
   position: fixed;
-  height: 100vh;
+  height: calc(100vh - 20px);
   width: 100vw;
+  overflow: auto;
 }
 
 .bg {
@@ -20,4 +21,135 @@ app-root{
   right: 0;
   top: 66vh;
   bottom: 0;
+
+  .copyright {
+    color: #ff9900;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    .content {
+      width: 300px;
+      margin: 5px auto;
+
+      a {
+        color: #ff9900;
+      }
+    }
+
+    .help {
+
+    }
+
+    .help, .help2 {
+      position: fixed;
+      bottom: 0;
+      margin: 5px;
+    }
+
+    .help2 {
+      right: 0;
+    }
+
+  }
+}
+
+countdown {
+  position: fixed;
+  right: 25px;
+  bottom: 30px;
+}
+
+app-progress-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 100px;
+  right: 100px;
+}
+
+.klaar {
+  position: fixed;
+  bottom: 60px;
+  right: 25px;
+}
+
+.controleer {
+  position: fixed;
+  bottom: 60px;
+  right: 25px;
+}
+
+.klaar, .ha, .controleer {
+  font-size: 1rem;
+  color: #006666;
+  border: solid 1px #ff9900;
+  background-color: #ff9900;
+  padding: 5px 5px;
+  margin: 0 5px;
+  border-radius: 4px;
+  width: 140px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #006666;
+    color: #ff9900;
+  }
+}
+
+countdown {
+  color: #ff9900;
+  font-weight: bold;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  z-index: 99999;
+  position: absolute;
+  left: calc(50% - 29px);
+  top: calc(50vh - 200px);
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
 }
