@@ -39,7 +39,9 @@
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "uuid": "^8.2.0",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.1",
@@ -61,8 +63,6 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "^3.9.6",
-    "uuid": "^8.2.0",
-    "ws": "^7.3.1"
   },
   "engines": {
     "node": "12.18.2",
