@@ -111,7 +111,6 @@ export class Opdracht7Component implements OnInit, OnDestroy {
       counter--;
       this.allesOK = false;
     }
-    console.log(counter + ' antwoorden goed.');
     if (this.allesOK) {
       this.svgRef.nativeElement.innerHTML = CHECKMARK_SVG;
     }

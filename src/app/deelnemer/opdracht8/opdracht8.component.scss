@@ -1,4 +1,31 @@
-div{
-  width: 600px;
-  margin: 10px auto;
+.maze-form {
+  margin: 1rem 0;
+}
+
+.maze-form input {
+  max-width: 3rem;
+  padding: 0.25rem;
+  margin: 0 0.5rem;
+}
+
+.maze-form button {
+  padding: 0.25rem;
+  margin: 0 0.5rem;
+}
+
+.arrows span {
+  font-size: xx-large;
+  user-select: none;
+  cursor: pointer;
+  margin: auto 0.25rem;
+}
+
+section .arrows{
+  position: absolute;
+  left: Calc(50% - 65px);
+}
+
+canvas {
+  position: fixed;
+  top: 135px;
 }

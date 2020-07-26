@@ -9,8 +9,9 @@
   <button (click)="start(8)">Start Opdracht 8</button>
   <button (click)="start(9)">Start Opdracht 9</button>
   <button (click)="start(10)">Start Opdracht 10</button>
-  <button (click)="start(0)">Zet in de wacht</button>
-  <button (click)="reset()">Reset</button>
+  <button (click)="start(11)">Start Opdracht 11</button>
+  <button (click)="start(0)"><fa-icon [icon]="faHourglass"></fa-icon> Zet in de wacht</button>
+  <button (click)="reset()"><fa-icon [icon]="faTrash"></fa-icon> Reset</button>
 </div>
 <table>
   <thead>
@@ -32,9 +33,17 @@
         <span *ngIf="i===5 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Puzzel opgelost'"></fa-icon></span>
         <span *ngIf="i===6 && student.answers[i].answer"><a [href]="student.answers[i].answer" target="answer"><fa-icon [icon]="faCheck" [title]="'Click for answer'"></fa-icon></a></span>
         <span *ngIf="i===7 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Cartoons opgelost'"></fa-icon></span>
-        <span *ngIf="i===9 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Gevonden items'"></fa-icon>({{student.answers[i].answer}})</span>
+        <span *ngIf="i===8 && student.answers[i].answer" title="Steps/Peaks">
+          <fa-icon *ngIf="!student.answers[i].answer.cheated" [icon]="faCheck" [title]="'Doolhof opgelost'"></fa-icon>
+          <fa-icon *ngIf="student.answers[i].answer.cheated" [icon]="faFrown" [title]="'Doolhof niet opgelost'" [style.color]="'red'"></fa-icon>
+          ({{student.answers[i].answer.steps}}/{{student.answers[i].answer.peaks}})
+        </span>
+        <span *ngIf="i===9 && student.answers[i].answer" title="Gevonden items"><fa-icon [icon]="faCheck"></fa-icon>({{student.answers[i].answer}})</span>
         <span *ngIf="i===10 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Gebaren opgelost'"></fa-icon></span>
       </span>
+    </td>
+    <td>
+      <button type="button" (click)="removeStudent(student)"><fa-icon [icon]="faTrash"></fa-icon></button>
     </td>
   </tr>
   </tbody>

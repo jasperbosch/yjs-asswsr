@@ -23,6 +23,7 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
 
   flipOn = 360;
   myPath;
+  audio;
 
   constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
     this.asswsr.studentStartOpdracht(6);
@@ -32,6 +33,8 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
     this.subs = interval(100).subscribe(result => {
       this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
     });
+
+    this.audio = new Audio('assets/beep-07.mp3');
   }
 
   ngOnDestroy(): void {
@@ -115,8 +118,24 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
     if (event.target.name === 'autisme') {
       const y = this.flipOn + (this.flipOn - event.point.y) - 50; // Ik weet niet waar deze 75 vandaan komt...
       this.myPath.add(event.point.x, y);
+
+      const color = this.getColor(event.point.x, y);
+      if (color[0] === 0 && color[1] === 0 && color[2] === 0) {
+        // play sound
+        this.audio.play();
+      }
     }
-    console.log(this.myPath.strokeColor._canvasStyle);
+  }
+
+  getColor(x, y): Uint8ClampedArray {
+    const context = this.myCanvas.nativeElement.getContext('2d');
+    const pixel = context.getImageData(x, y, 1, 1);
+
+    // Red = rgb[0], green = rgb[1], blue = rgb[2]
+    // All colors are within range [0, 255]
+    const rgb = pixel.data;
+
+    return rgb;
   }
 
   klaar(): void {

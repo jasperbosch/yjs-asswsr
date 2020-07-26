@@ -105,7 +105,6 @@ export class Opdracht4Component implements OnInit, AfterViewInit, OnDestroy {
       this.zoom = this.zoom + this.zoomDelta;
       this.height = this.height * this.zoom;
       this.width = this.width * this.zoom;
-      console.log(this.zoom);
     }
   }
 

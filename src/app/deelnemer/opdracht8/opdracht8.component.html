@@ -1,6 +1,38 @@
 <div>
   <a href="assets/img/labyrint.exe">Download Labyrint</a>
+
+  <div style="text-align: center;">
+    <div class="maze-form">
+      <label for="nRow"># Rows</label>
+      <input id="nRow" type="number" [(ngModel)]="row" min="1" max="500"/>
+      <label for="nCol"># Columns</label>
+      <input id="nCol" type="number" [(ngModel)]="col" min="1" max="500"/>
+      <button type="button" (click)="drawMaze()" [disabled]="busy">
+        New Maze
+      </button>
+      <button type="button" (click)="drawSolution()">Solution</button>
+      <button type="button" (click)="toggleCover()">Cover {{coverSwitch ? 'off' : 'on'}}</button>
+      Steps: {{steps}} Peaked: {{peaks}} times
+    </div>
+    <section>
+      <canvas #maze></canvas>
+      <canvas #hole [style.display]="coverSwitch?'block':'none'"></canvas>
+    </section>
+    <section>
+      <div class="arrows" #arrows>
+        <div><span (click)="move('Up')" title="move up">⬆️</span></div>
+        <div>
+          <span (click)="move('Left')" title="move left">⬅️</span>
+          <span (click)="undo()" title="undo 5 steps">⏪</span>
+          <span (click)="move('Right')" title="move right">➡️</span>
+        </div>
+        <div><span (click)="move('Down')" title="move down">⬇️</span></div>
+      </div>
+    </section>
+  </div>
+
+
 </div>
-<button (click)="klaar()" class="klaar">Klaar</button>
+<button (click)="klaar()" class="klaar" *ngIf="allesOK">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
 <app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>

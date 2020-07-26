@@ -29,7 +29,7 @@ export class AsswsrService {
     this.socket$
       .subscribe(
         (message) => {
-          console.log('Message: ', message);
+          // console.log('Message: ', message);
           switch (message.soort) {
             case 'USERINPUT':
               this.router.navigate(['/']);
@@ -60,7 +60,9 @@ export class AsswsrService {
           }
         },
         (err) => console.error(err),
-        () => console.warn('Completed!')
+        () => {
+          // console.warn('Completed!')
+        }
       );
   }
 
@@ -94,5 +96,9 @@ export class AsswsrService {
 
   resetAll(): void {
     this.socket$.next(new Message('tutor', 'RESETALL', '', false));
+  }
+
+  removeStudent(student): void {
+    this.socket$.next(new Message('tutor', 'REMOVE', student, false));
   }
 }

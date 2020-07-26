@@ -23,9 +23,19 @@ let tutorWs;
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({server});
 
+let sendTutorMessage = function (message) {
+  console.log(message);
+  tutorWs.ws.send(message);
+};
+let sendMessage = function (studentWs, message) {
+  console.log(message);
+  studentWs.send(message);
+};
+
 let updateStudensForTutor = function () {
   if (tutorWs) {
-    tutorWs.ws.send(JSON.stringify({sender: 'server', soort: 'STUDENTS', content: students, isBroadcast: false}));
+    let message = JSON.stringify({sender: 'server', soort: 'STUDENTS', content: students, isBroadcast: false});
+    sendTutorMessage(message);
   }
 };
 
@@ -46,11 +56,12 @@ let signOn = function (message, uuid, ws) {
         tutor = {id: uuid, name: message.content, connection: 'open'};
         tutors.push(tutor);
       }
-      ws.send(JSON.stringify({sender: 'server', soort: 'CONFIRM', content: tutor, isBroadcast: false}));
+      sendMessage(ws, JSON.stringify({sender: 'server', soort: 'CONFIRM', content: tutor, isBroadcast: false}));
       tutorWs = {id: uuid, ws: ws};
       tutorsWs.push(tutorWs);
       updateStudensForTutor();
     } else {
+      uuid = undefined;
       let student;
       for (let i = 0; i < students.length; i++) {
         if (students[i].name === message.content) {
@@ -69,7 +80,7 @@ let signOn = function (message, uuid, ws) {
         student = {id: uuid, name: message.content, connection: 'open', answers: []};
         students.push(student);
       }
-      ws.send(JSON.stringify({sender: 'server', soort: 'CONFIRM', content: student, isBroadcast: false}));
+      sendMessage(ws, JSON.stringify({sender: 'server', soort: 'CONFIRM', content: student, isBroadcast: false}));
       const studentWs = {id: uuid, ws: ws};
       studentsWs.push(studentWs);
       updateStudensForTutor();
@@ -86,7 +97,7 @@ let getUser = function (message, uuid, ws) {
       students[i].connection = 'open';
       student = students[i];
       // notifier.notify(`found: ${JSON.stringify(student)}`);
-      ws.send(JSON.stringify({sender: 'server', soort: 'CONFIRM', content: student, isBroadcast: false}));
+      sendMessage(ws, JSON.stringify({sender: 'server', soort: 'CONFIRM', content: student, isBroadcast: false}));
       const studentWs = {id: uuid, ws: ws};
       studentsWs.push(studentWs);
       updateStudensForTutor();
@@ -100,7 +111,7 @@ let getUser = function (message, uuid, ws) {
         uuid = tutors[i].id;
         tutors[i].connection = 'open';
         tutor = tutors[i];
-        ws.send(JSON.stringify({sender: 'server', soort: 'CONFIRM', content: tutor, isBroadcast: false}));
+        sendMessage(ws, JSON.stringify({sender: 'server', soort: 'CONFIRM', content: tutor, isBroadcast: false}));
         tutorWs = {id: uuid, ws: ws};
         tutorsWs.push(tutorWs);
         updateStudensForTutor();
@@ -108,7 +119,7 @@ let getUser = function (message, uuid, ws) {
       }
     }
     if (!tutor) {
-      ws.send(JSON.stringify({sender: 'server', soort: 'USERINPUT', content: '', isBroadcast: false}));
+      sendMessage(ws, JSON.stringify({sender: 'server', soort: 'USERINPUT', content: '', isBroadcast: false}));
     }
   }
   return uuid;
@@ -118,6 +129,12 @@ let start = function (message) {
   const opdracht = message.content;
   for (let i = 0; i < studentsWs.length; i++) {
     studentsWs[i].ws.send(JSON.stringify({sender: 'server', soort: 'START', content: opdracht, isBroadcast: false}))
+    sendMessage(studentsWs[i].ws, JSON.stringify({
+      sender: 'server',
+      soort: 'START',
+      content: opdracht,
+      isBroadcast: false
+    }))
   }
 };
 
@@ -146,11 +163,23 @@ let answer = function (message) {
 
 let resetAll = function () {
   for (let i = 0; i < studentsWs.length; i++) {
-    studentsWs[i].ws.send(JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
+    sendMessage(studentsWs[i].ws, JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
   }
   students.splice(0, students.length);
   studentsWs.splice(0, students.length);
   updateStudensForTutor();
+};
+
+let removeStudent = function (message) {
+  for (let i = 0; i < students.length; i++) {
+    if (students[i].id === message.content.id) {
+      sendMessage(studentsWs[i].ws,JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
+      students.splice(i, 1);
+      studentsWs.splice(i, 1);
+      updateStudensForTutor();
+      break;
+    }
+  }
 };
 
 wss.on('connection', (ws) => {
@@ -186,6 +215,9 @@ wss.on('connection', (ws) => {
       case 'RESETALL':
         resetAll();
         break;
+      case 'REMOVE':
+        removeStudent(message);
+        break;
       default:
       //
     }
@@ -217,7 +249,7 @@ wss.on('connection', (ws) => {
 
   //send immediatly a feedback to the incoming connection
   const message = 'Hi there, I am a WebSocket server'
-  ws.send(JSON.stringify(message));
+  sendMessage(ws,JSON.stringify(message));
 });
 
 

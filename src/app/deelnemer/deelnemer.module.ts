@@ -25,18 +25,18 @@ import {ProgressBarComponent} from './progress-bar/progress-bar.component';
 @NgModule({
   declarations: [
     CorridorComponent,
-    Opdracht5Component,
-    Opdracht6Component,
-    Opdracht7Component,
-    Opdracht9Component,
-    Opdracht10Component,
     Opdracht1Component,
     Opdracht2Component,
     Opdracht3Component,
     Opdracht4Component,
-    ProgressBarComponent,
+    Opdracht5Component,
+    Opdracht6Component,
+    Opdracht7Component,
     Opdracht8Component,
-    Opdracht11Component
+    Opdracht9Component,
+    Opdracht10Component,
+    Opdracht11Component,
+    ProgressBarComponent
   ],
   imports: [
     CommonModule,
