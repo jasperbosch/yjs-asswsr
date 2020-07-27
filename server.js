@@ -173,12 +173,35 @@ let resetAll = function () {
 let removeStudent = function (message) {
   for (let i = 0; i < students.length; i++) {
     if (students[i].id === message.content.id) {
-      sendMessage(studentsWs[i].ws,JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
+      sendMessage(studentsWs[i].ws, JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
       students.splice(i, 1);
       studentsWs.splice(i, 1);
       updateStudensForTutor();
       break;
     }
+  }
+};
+
+let removeTutor = function (message) {
+  if (message.sender === 'tutor') {
+    resetAll();
+    for (let i = 0; i < tutorsWs.length; i++) {
+      sendMessage(tutorsWs[i].ws, JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
+    }
+    tutors.splice(0, students.length);
+    tutorsWs.splice(0, students.length);
+    tutorWs = undefined;
+  } else {
+    for (let i = 0; i < students.length; i++) {
+      if (students[i].name === message.sender) {
+        sendMessage(studentsWs[i].ws, JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
+        students.splice(i, 1);
+        studentsWs.splice(i, 1);
+        updateStudensForTutor();
+        break;
+      }
+    }
+
   }
 };
 
@@ -218,6 +241,9 @@ wss.on('connection', (ws) => {
       case 'REMOVE':
         removeStudent(message);
         break;
+      case 'EXIT':
+        removeTutor(message);
+        break;
       default:
       //
     }
@@ -249,7 +275,7 @@ wss.on('connection', (ws) => {
 
   //send immediatly a feedback to the incoming connection
   const message = 'Hi there, I am a WebSocket server'
-  sendMessage(ws,JSON.stringify(message));
+  sendMessage(ws, JSON.stringify(message));
 });
 
 

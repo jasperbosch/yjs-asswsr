@@ -38,7 +38,7 @@ export class AsswsrService {
               this.studentUuid = message.content.id;
               this.studentNaam = message.content.name;
               this.userName.next(this.studentNaam);
-              sessionStorage.setItem('id', message.content.id);
+              localStorage.setItem('id', message.content.id);
               break;
             case 'STUDENTS':
               this.students.next(message.content);
@@ -49,7 +49,7 @@ export class AsswsrService {
                 this.studentUuid = undefined;
                 this.studentNaam = undefined;
                 this.userName.next(this.studentNaam);
-                sessionStorage.removeItem('id');
+                localStorage.removeItem('id');
                 this.router.navigate(['']);
               } else if (nummer === 0) {
                 this.router.navigate(['deelnemer', 'corridor']);
@@ -67,7 +67,7 @@ export class AsswsrService {
   }
 
   getUser(): void {
-    this.socket$.next(new Message('init', 'GETUSER', sessionStorage.getItem('id'), false));
+    this.socket$.next(new Message('init', 'GETUSER', localStorage.getItem('id'), false));
   }
 
   sendName(name: string): void {
@@ -100,5 +100,10 @@ export class AsswsrService {
 
   removeStudent(student): void {
     this.socket$.next(new Message('tutor', 'REMOVE', student, false));
+  }
+
+  exit(username): void {
+    this.socket$.next(new Message(username, 'EXIT', '', false));
+    this.router.navigate(['']);
   }
 }

@@ -21,4 +21,12 @@ export class AppComponent {
 
     asswsr.getUser();
   }
+
+  exit(){
+    this.asswsr.exit(this.userName);
+    this.userName = undefined;
+    this.tutor = false;
+    localStorage.clear();
+  }
+
 }
