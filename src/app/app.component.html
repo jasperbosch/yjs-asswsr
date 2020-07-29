@@ -1,19 +1,29 @@
-<nav>
+<mat-toolbar color="primary">
   <span *ngIf="userName && !tutor">
-    <a routerLink="deelnemer/opdracht1" routerLinkActive="active">Opdracht 1</a>
-    <a routerLink="deelnemer/opdracht2" routerLinkActive="active">Opdracht 2</a>
-    <a routerLink="deelnemer/opdracht3" routerLinkActive="active">Opdracht 3</a>
-    <a routerLink="deelnemer/opdracht4" routerLinkActive="active">Opdracht 4</a>
-    <a routerLink="deelnemer/opdracht5" routerLinkActive="active">Opdracht 5</a>
-    <a routerLink="deelnemer/opdracht6" routerLinkActive="active">Opdracht 6</a>
-    <a routerLink="deelnemer/opdracht7" routerLinkActive="active">Opdracht 7</a>
-    <a routerLink="deelnemer/opdracht8" routerLinkActive="active">Opdracht 8</a>
-    <a routerLink="deelnemer/opdracht9" routerLinkActive="active">Opdracht 9</a>
-    <a routerLink="deelnemer/opdracht10" routerLinkActive="active">Opdracht 10</a>
-    <a routerLink="deelnemer/opdracht11" routerLinkActive="active">Opdracht 11</a>
+    <button mat-icon-button class="menutoggle" [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item routerLink="deelnemer/opdracht1"><span>1. Sneeuwwitje</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht2"><span>2. Gebarentaal</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht3"><span>3. Mop</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht4"><span>4. Lowietje</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht5"><span>5. Puzzel</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht6"><span>6. Woord Autisme</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht7"><span>7. Cartoonist</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht8"><span>8. Naar het huisje</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht9"><span>9. Kijkgaatje</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht10"><span>10. Vrouw gebaar</span></a>
+      <a mat-menu-item routerLink="deelnemer/opdracht11"><span>11. Kokertje</span></a>
+    </mat-menu>
   </span>
-</nav>
+  <i>Autisme Belevings Circuit</i>
+  <span class="spacer"></span>
+  <span *ngIf="userName">
+    <mat-icon>person</mat-icon>
+    {{userName}}
+    <span  class="uitloggen"><a href="javascript:;" (click)="exit()" title="Exit application"><mat-icon>exit_to_app</mat-icon></a></span>
+  </span>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
 
-<div class="username"><a href="javascript:;" (click)="exit()" title="Exit application">{{userName}}</a></div>
+

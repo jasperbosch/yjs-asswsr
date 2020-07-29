@@ -28,3 +28,17 @@ nav {
   left: 5px;
   bottom:30px;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+button.menutoggle {
+  background: none;
+  outline:none;
+  border:none;
+  color:white;
+}
+.uitloggen a {
+  color:white;
+}

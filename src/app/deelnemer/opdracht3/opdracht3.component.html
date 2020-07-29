@@ -5,8 +5,10 @@
   </audio>
 </div>
 <div>
-  <label for="antwoord">Antwoord</label>
-  <input type="text" [(ngModel)]="antwoord" name="antwoord" id="antwoord">
+  <mat-form-field>
+    <mat-label>Antwoord</mat-label>
+    <input matInput type="text" name="antwoord" id="antwoord" [(ngModel)]="antwoord" autocomplete="off">
+  </mat-form-field>
 </div>
 <button (click)="klaar()" class="klaar">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
