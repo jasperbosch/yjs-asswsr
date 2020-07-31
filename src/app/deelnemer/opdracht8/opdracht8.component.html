@@ -20,13 +20,13 @@
     </section>
     <section>
       <div class="arrows" #arrows>
-        <div><span (click)="move('Up')" title="move up">⬆️</span></div>
+        <div><button mat-icon-button color="accent" (click)="move('Up')" title="move up"><mat-icon>north</mat-icon></button></div>
         <div>
-          <span (click)="move('Left')" title="move left">⬅️</span>
-          <span (click)="undo()" title="undo 5 steps">⏪</span>
-          <span (click)="move('Right')" title="move right">➡️</span>
+          <button mat-icon-button color="accent" (click)="move('Left')" title="move left"><mat-icon>west</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="undo()" title="undo 5 steps"><mat-icon>fast_rewind</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="move('Right')" title="move right"><mat-icon>east</mat-icon></button>
         </div>
-        <div><span (click)="move('Down')" title="move down">⬇️</span></div>
+        <div><button mat-icon-button color="accent" (click)="move('Down')" title="move down"><mat-icon>south</mat-icon></button></div>
       </div>
     </section>
   </div>

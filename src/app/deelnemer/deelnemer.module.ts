@@ -2,10 +2,13 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {RouterModule} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {CountdownModule} from 'ngx-countdown';
 
 import {CorridorComponent} from './corridor/corridor.component';
@@ -48,7 +51,9 @@ import {ProgressBarComponent} from './progress-bar/progress-bar.component';
     FormsModule,
     FontAwesomeModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class DeelnemerModule {

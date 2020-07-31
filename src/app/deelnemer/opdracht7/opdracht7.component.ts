@@ -13,10 +13,14 @@ import {CHECKMARK_SVG} from '../shared/checkmark.const';
 })
 export class Opdracht7Component implements OnInit, OnDestroy {
 
+  @ViewChild('carousel') carousel: ElementRef;
+
   countdown = 8 * 60;
   progress;
   subs;
   allesOK = false;
+
+  current = 0;
 
   words = ['STRIP', 'WERK', 'JONGEREN', 'STRIJK', 'LEES', 'SCHEMA', 'DRAAI', 'KOP', 'GROEP', 'ARM',
     'POT', 'DAG', 'HANG', 'GETAL', 'VERHAAL', 'TELEVISIE', 'PRIKKEL', 'KWARTET', 'CEL', 'VROUW',
@@ -128,6 +132,22 @@ export class Opdracht7Component implements OnInit, OnDestroy {
       [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
+  }
+
+  prev(): void {
+    this.current--;
+    if (this.current < 0) {
+      this.current = 0;
+    }
+    this.carousel.nativeElement.style.transform = `translate(-${this.current * 520}px,0)`;
+  }
+
+  next(): void {
+    this.current++;
+    if (this.current > 9) {
+      this.current = 9;
+    }
+    this.carousel.nativeElement.style.transform = `translate(-${this.current * 520}px,0)`;
   }
 
 }

@@ -1,9 +1,13 @@
-<canvas id="myCanvas" resize
+<canvas id="myCanvas"
+        width="800"
+        height="200"
         #myCanvas
         (mousemove)="onMouseMove($event)"
         (mousedown)="onMouseDown($event)"
         (mousedrag)="onMouseDrag($event)"
 ></canvas>
+<button (click)="undo()" class="undo">Undo</button>
+<button (click)="reset()" class="reset">Reset</button>
 <button (click)="klaar()" class="klaar">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
 <app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>

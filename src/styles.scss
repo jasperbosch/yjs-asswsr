@@ -109,13 +109,24 @@ app-progress-bar {
   right: 25px;
 }
 
+.undo {
+  position: fixed;
+  bottom: 120px;
+  right: 25px;
+}
+
+.reset {
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
+}
 .controleer {
   position: fixed;
   bottom: 60px;
   right: 25px;
 }
 
-.klaar, .ha, .controleer {
+.klaar, .ha, .controleer, .reset, .undo {
   font-size: 1rem;
   color: #006666;
   border: solid 1px #ff9900;

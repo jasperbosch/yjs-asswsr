@@ -21,7 +21,15 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
 
   cursor: paper.Path.Circle;
 
-  flipOn = 360;
+  paths: paper.Path[] = [];
+
+  base = 64;
+  top = 144;
+  bottom = 366;
+
+  flipCursor = ((this.bottom - this.top) / 2) + this.top;
+  flipPath = ((this.bottom - this.top) / 2) + (this.top - this.base);
+
   myPath;
   audio;
 
@@ -78,7 +86,7 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
     // tekst.selected = true;
     tekst.sendToBack();
 
-    this.flipOn = tekst.bounds.y + (tekst.bounds.height / 2) + 50;
+    // this.flipOn = tekst.bounds.y + (tekst.bounds.height / 2) + this.min;
 
     this.cursor = new paper.Path.Circle({
       center: new paper.Point(10, 10),
@@ -87,9 +95,9 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
       radius: 3
     });
 
-    tekst.onMouseDrag = this.onMouseDrag.bind(this);
-    tekst.onMouseMove = this.onMouseMove.bind(this);
-    tekst.onMouseDown = this.onMouseDown.bind(this);
+    paper.view.onMouseDrag = this.onMouseDrag.bind(this);
+    paper.view.onMouseMove = this.onMouseMove.bind(this);
+    paper.view.onMouseDown = this.onMouseDown.bind(this);
 
     this.cursor.bringToFront();
   }
@@ -97,7 +105,7 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
 
   onMouseMove(event: any): void {
     if (event.y) {
-      const y = this.flipOn + (this.flipOn - event.y);
+      const y = this.flipCursor + (this.flipCursor - event.y) - this.base;
       if (this.cursor) {
         this.cursor.position = new paper.Point(event.x, y);
       }
@@ -105,18 +113,15 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onMouseDown(event: any): void {
-    if (event.target.name === 'autisme') {
       this.myPath = new paper.Path();
+      this.paths.push(this.myPath);
       this.myPath.strokeColor = 'silver';
       this.myPath.strokeWidth = 5;
-      // this.myPath.opacity = 0.5;
       this.myPath.blendMode = 'difference';
-    }
   }
 
   onMouseDrag(event: any): void {
-    if (event.target.name === 'autisme') {
-      const y = this.flipOn + (this.flipOn - event.point.y) - 50; // Ik weet niet waar deze 75 vandaan komt...
+      const y = this.flipPath + (this.flipPath - event.point.y);
       this.myPath.add(event.point.x, y);
 
       const color = this.getColor(event.point.x, y);
@@ -124,7 +129,6 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
         // play sound
         this.audio.play();
       }
-    }
   }
 
   getColor(x, y): Uint8ClampedArray {
@@ -150,5 +154,18 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
     const tijd = this.countdown - (this.countdownC.left / 1000);
     this.asswsr.sendAnswer(6, tijd, answer);
   }
+
+  reset(): void {
+    this.paths.forEach(path => {
+      path.remove();
+    });
+    this.paths = [];
+  }
+
+  undo(): void {
+    const path = this.paths.pop();
+    path.remove();
+  }
+
 
 }

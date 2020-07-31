@@ -10,13 +10,15 @@
 
 .cartoons {
   display: inline-block;
-  height: calc(100vh - 100px);
+  height: 600px !important;
   width: 520px;
   min-width: 520px;
-  overflow: auto;
+  overflow: hidden;
 
   img {
     width: 500px;
+    height: auto !important;
+    max-height: 533px;
   }
 }
 
@@ -51,8 +53,9 @@
   background: white;
   font-size: 14px;
 }
-.input.word{
-  border:none;
+
+.input.word {
+  border: none;
   width: 100%;
 }
 
@@ -105,5 +108,27 @@ input, input:focus {
   margin: 0;
   height: 100%;
   border: none;
-  outline:none;
+  outline: none;
+}
+
+.carousel {
+  display: block;
+  width: 5200px;
+}
+
+.caroucel {
+  width: 520px;
+  display: inline-block;
+}
+
+.next {
+  position: relative;
+  transform: translate(420px, -320px);
+  background-color: #00897b;
+}
+
+.prev {
+  position: relative;
+  transform: translate(0px, -320px);
+  background-color: #00897b;
 }
