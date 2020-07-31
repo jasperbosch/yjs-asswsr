@@ -112,7 +112,9 @@ export class Opdracht8Component implements OnInit, OnDestroy, AfterViewInit {
     const halfWidth = width / 2;
 
     this.myMaze.nativeElement.width = width;
+    this.myMaze.nativeElement.style.width = width + 'px';
     this.myMaze.nativeElement.height = height;
+    this.myMaze.nativeElement.style.height = height + 'px';
     this.myMaze.nativeElement.style.left = `Calc(50% - ${halfWidth}px)`;
 
     this.myArrows.nativeElement.style.top = (135 + this.row * this.cellSize) + 'px';
@@ -128,7 +130,9 @@ export class Opdracht8Component implements OnInit, OnDestroy, AfterViewInit {
 
     this.holeScope.activate();
     this.myHole.nativeElement.width = width;
+    this.myHole.nativeElement.style.width = width + 'px';
     this.myHole.nativeElement.height = height;
+    this.myHole.nativeElement.style.height = height + 'px';
     this.myHole.nativeElement.style.left = `Calc(50% - ${halfWidth}px)`;
 
     const c1 = new this.holeScope.Path.Rectangle(new this.holeScope.Rectangle(0, 0, this.col * this.cellSize, this.row * this.cellSize));
