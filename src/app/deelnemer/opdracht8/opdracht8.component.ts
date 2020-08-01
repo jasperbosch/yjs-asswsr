@@ -22,6 +22,7 @@ export class Opdracht8Component implements OnInit, OnDestroy, AfterViewInit {
 
   row = 16;
   col = 16;
+
   private maze: Maze;
   private readonly cellSize = 20; // length of cell edge
   private readonly cellEdgeThickness = 2; // thickness of cell edge
@@ -117,7 +118,7 @@ export class Opdracht8Component implements OnInit, OnDestroy, AfterViewInit {
     this.myMaze.nativeElement.style.height = height + 'px';
     this.myMaze.nativeElement.style.left = `Calc(50% - ${halfWidth}px)`;
 
-    this.myArrows.nativeElement.style.top = (135 + this.row * this.cellSize) + 'px';
+    this.myArrows.nativeElement.style.top = (160 + this.row * this.cellSize) + 'px';
 
     // open the first and last cells to show the entrance and exit
     this.maze.firstCell.westEdge = false;

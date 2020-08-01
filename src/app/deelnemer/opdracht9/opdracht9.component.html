@@ -8,9 +8,11 @@
 </div>
 <div class="invoer">
   <div class="question">
-    <label for="item">Wat ziet u? (1 woord)</label>
-    <input type="text" name="item" id="item" [(ngModel)]="item" (keyup.enter)="addItem()">
-    <button (click)="addItem()">
+    <mat-form-field color="accent">
+      <mat-label>Wat ziet u? (1 woord)</mat-label>
+      <input matInput type="text"  autocomplete="false" name="item" [(ngModel)]="item" (keyup.enter)="addItem()">
+    </mat-form-field>
+    <button mat-icon-button (click)="addItem()" color="accent">
       <fa-icon [icon]="faPlus"></fa-icon>
     </button>
   </div>

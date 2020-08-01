@@ -1,5 +1,6 @@
 .maze-form {
-  margin: 1rem 0;
+  margin: 1rem auto;
+  width:600px;
 }
 
 .maze-form input {
@@ -27,12 +28,13 @@ section .arrows{
 
 canvas {
   position: fixed;
-  top: 135px;
+  top: 160px;
 }
 
 .arrows {
   padding-top: 10px;
-  button{
-    background-color: #00897b;
-  }
+
+}
+button{
+  background-color: #00897b;
 }

@@ -1,17 +1,22 @@
 <div>
-  <a href="assets/img/labyrint.exe">Download Labyrint</a>
+  <!--  <a href="assets/img/labyrint.exe">Download Labyrint</a>-->
 
   <div style="text-align: center;">
-    <div class="maze-form">
-      <label for="nRow"># Rows</label>
-      <input id="nRow" type="number" [(ngModel)]="row" min="1" max="500"/>
-      <label for="nCol"># Columns</label>
-      <input id="nCol" type="number" [(ngModel)]="col" min="1" max="500"/>
-      <button type="button" (click)="drawMaze()" [disabled]="busy">
+    <div  class="maze-form">
+      <mat-form-field [style.width.px]="60">
+        <mat-label># Rows</mat-label>
+        <input matInput type="number" name="row" [(ngModel)]="row" min="1" max="500" autocomplete="false"/>
+      </mat-form-field>
+      <mat-form-field [style.width.px]="60">
+        <mat-label># Columns</mat-label>
+        <input matInput type="number" name="col" [(ngModel)]="col" min="1" max="500" autocomplete="false"/>
+      </mat-form-field>
+      <button mat-button color="accent" type="button" (click)="drawMaze()" [disabled]="busy">
         New Maze
       </button>
-      <button type="button" (click)="drawSolution()">Solution</button>
-      <button type="button" (click)="toggleCover()">Cover {{coverSwitch ? 'off' : 'on'}}</button>
+      <button mat-button color="accent" type="button" (click)="drawSolution()">Solution</button>
+      <button mat-button color="accent" type="button" (click)="toggleCover()">
+        Cover {{coverSwitch ? 'off' : 'on'}}</button>
       Steps: {{steps}} Peaked: {{peaks}} times
     </div>
     <section>
@@ -20,13 +25,27 @@
     </section>
     <section>
       <div class="arrows" #arrows>
-        <div><button mat-icon-button color="accent" (click)="move('Up')" title="move up"><mat-icon>north</mat-icon></button></div>
         <div>
-          <button mat-icon-button color="accent" (click)="move('Left')" title="move left"><mat-icon>west</mat-icon></button>
-          <button mat-icon-button color="accent" (click)="undo()" title="undo 5 steps"><mat-icon>fast_rewind</mat-icon></button>
-          <button mat-icon-button color="accent" (click)="move('Right')" title="move right"><mat-icon>east</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="move('Up')" title="move up">
+            <mat-icon>north</mat-icon>
+          </button>
         </div>
-        <div><button mat-icon-button color="accent" (click)="move('Down')" title="move down"><mat-icon>south</mat-icon></button></div>
+        <div>
+          <button mat-icon-button color="accent" (click)="move('Left')" title="move left">
+            <mat-icon>west</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="undo()" title="undo 5 steps">
+            <mat-icon>fast_rewind</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="move('Right')" title="move right">
+            <mat-icon>east</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button mat-icon-button color="accent" (click)="move('Down')" title="move down">
+            <mat-icon>south</mat-icon>
+          </button>
+        </div>
       </div>
     </section>
   </div>

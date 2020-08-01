@@ -133,10 +133,10 @@
         </div>
       </div>
     </div>
-    <button mat-icon-button (click)="prev()" class="prev" color="accent">
+    <button mat-icon-button (click)="prev()" class="prev" color="accent" [disabled]="current<1">
       <mat-icon>chevron_left</mat-icon>
     </button>
-    <button mat-icon-button (click)="next()" class="next" color="accent">
+    <button mat-icon-button (click)="next()" class="next" color="accent" [disabled]="current>8">
       <mat-icon>chevron_right</mat-icon>
     </button>
   </div>
@@ -157,4 +157,3 @@
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
 <app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>
 <div #svg></div>
-{{current}}
