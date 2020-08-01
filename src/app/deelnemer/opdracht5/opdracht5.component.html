@@ -11,5 +11,5 @@
 <div class="instructie">Double click = rotate 90 &deg;</div>
 <button (click)="klaar()" class="klaar" *ngIf="allesOK">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
-<app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>
+<app-progress-bar [progress]="progress"></app-progress-bar>
 <div #svg></div>

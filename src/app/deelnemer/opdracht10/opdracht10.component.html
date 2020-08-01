@@ -70,5 +70,5 @@
 <button (click)="controleer()" class="controleer" *ngIf="!allesOK">Controleer</button>
 <button (click)="klaar()" class="klaar" *ngIf="allesOK">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
-<app-progress-bar [progress]="progress" [disabledP]="true"></app-progress-bar>
+<app-progress-bar [progress]="progress"></app-progress-bar>
 <div #svg></div>

@@ -1,8 +1,1 @@
-<div class="progress-outer">
-  <div class="progress-inner" [style.width]="whichProgress(progress) + '%'"
-       [style.background-color]="degraded == null ? color : whichColor(progress)">
-    <ng-container *ngIf="!disabledP">
-      {{whichProgress(progress)}}%
-    </ng-container>
-  </div>
-</div>
+<mat-progress-bar [value]="progress" color="accent" mode="determinate"></mat-progress-bar>

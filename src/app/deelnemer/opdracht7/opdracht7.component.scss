@@ -114,6 +114,8 @@ input, input:focus {
 .carousel {
   display: block;
   width: 5200px;
+  transition: transform 0.5s;
+  transition-timing-function: ease;
 }
 
 .caroucel {

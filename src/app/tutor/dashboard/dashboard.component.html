@@ -10,41 +10,160 @@
   <button (click)="start(9)">Start Opdracht 9</button>
   <button (click)="start(10)">Start Opdracht 10</button>
   <button (click)="start(11)">Start Opdracht 11</button>
-  <button (click)="start(0)"><fa-icon [icon]="faHourglass"></fa-icon> Zet in de wacht</button>
-  <button (click)="reset()"><fa-icon [icon]="faTrash"></fa-icon> Reset</button>
+  <button (click)="start(0)">
+    <fa-icon [icon]="faHourglass"></fa-icon>
+    Zet in de wacht
+  </button>
+  <button (click)="reset()">
+    <fa-icon [icon]="faTrash"></fa-icon>
+    Reset
+  </button>
 </div>
-<table>
-  <thead>
-  <tr>
-    <th>Student</th>
-    <td>Wacht</td>
-    <td *ngFor="let i of range">Opdracht {{i}}</td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let student of students">
-    <td [ngClass]="{'green':student.connection==='open','red':student.connection!=='open'}">{{student.name}}</td>
-    <td [ngClass]="{'active':student.currPage === 0}"></td>
-    <td *ngFor="let i of range" [ngClass]="{'active':student.currPage === i}">
-      <span *ngIf="student.answers && student.answers[i]">{{student.answers[i].tijd}} sec
-        <span *ngIf="i===2 && student.answers[i].answer.alfabetShown"><fa-icon [icon]="faCheck" title="handalfabet is getoond"></fa-icon></span>
-        <span *ngIf="i===3 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Antwoord: '+student.answers[i].answer"></fa-icon></span>
-        <span *ngIf="i===4 && student.answers[i].answer"><a [href]="student.answers[i].answer" target="answer"><fa-icon [icon]="faCheck" [title]="'Click for answer'"></fa-icon></a></span>
-        <span *ngIf="i===5 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Puzzel opgelost'"></fa-icon></span>
-        <span *ngIf="i===6 && student.answers[i].answer"><a [href]="student.answers[i].answer" target="answer"><fa-icon [icon]="faCheck" [title]="'Click for answer'"></fa-icon></a></span>
-        <span *ngIf="i===7 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Cartoons opgelost'"></fa-icon></span>
-        <span *ngIf="i===8 && student.answers[i].answer" title="Steps/Peaks">
-          <fa-icon *ngIf="!student.answers[i].answer.cheated" [icon]="faCheck" [title]="'Doolhof opgelost'"></fa-icon>
-          <fa-icon *ngIf="student.answers[i].answer.cheated" [icon]="faFrown" [title]="'Doolhof niet opgelost'" [style.color]="'red'"></fa-icon>
-          ({{student.answers[i].answer.steps}}/{{student.answers[i].answer.peaks}})
+
+<table mat-table [dataSource]="students" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Student</th>
+    <th mat-cell *matCellDef="let student"
+        [ngClass]="{'green':student.connection==='open','red':student.connection!=='open'}">{{student.name}}</th>
+  </ng-container>
+
+  <ng-container matColumnDef="wacht">
+    <td mat-header-cell *matHeaderCellDef>Wacht</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 0}"></td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht1">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 1</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 1}"><span
+      *ngIf="student.answers && student.answers[1]">{{student.answers[1].tijd}} sec</span></td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht2">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 2</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 2}">
+      <span *ngIf="student.answers && student.answers[2]">{{student.answers[2].tijd}} sec
+        <span *ngIf="student.answers[2].answer.alfabetShown">
+          <fa-icon [icon]="faCheck" title="handalfabet is getoond"></fa-icon>
         </span>
-        <span *ngIf="i===9 && student.answers[i].answer" title="Gevonden items"><fa-icon [icon]="faCheck"></fa-icon>({{student.answers[i].answer}})</span>
-        <span *ngIf="i===10 && student.answers[i].answer"><fa-icon [icon]="faCheck" [title]="'Gebaren opgelost'"></fa-icon></span>
       </span>
     </td>
-    <td>
-      <button type="button" (click)="removeStudent(student)"><fa-icon [icon]="faTrash"></fa-icon></button>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht3">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 3</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 3}">
+      <span *ngIf="student.answers && student.answers[3]">{{student.answers[3].tijd}} sec
+        <span *ngIf="student.answers[3].answer">
+          <fa-icon [icon]="faCheck" [title]="'Antwoord: '+student.answers[3].answer"></fa-icon>
+        </span>
+      </span>
     </td>
-  </tr>
-  </tbody>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht4">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 4</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 4}">
+      <span *ngIf="student.answers && student.answers[4]">{{student.answers[4].tijd}} sec
+         <span *ngIf="student.answers[4].answer">
+           <a [href]="student.answers[4].answer" target="answer">
+             <fa-icon [icon]="faCheck" [title]="'Click for answer'"></fa-icon>
+           </a>
+         </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht5">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 5</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 5}">
+      <span *ngIf="student.answers && student.answers[5]">{{student.answers[5].tijd}} sec
+        <span *ngIf="student.answers[5].answer">
+          <fa-icon [icon]="faCheck" [title]="'Puzzel opgelost'"></fa-icon>
+        </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht6">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 6</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 6}">
+      <span *ngIf="student.answers && student.answers[6]">{{student.answers[6].tijd}} sec
+        <span *ngIf="student.answers[6].answer">
+          <a [href]="student.answers[6].answer" target="answer">
+            <fa-icon [icon]="faCheck" [title]="'Click for answer'"></fa-icon>
+          </a>
+        </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht7">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 7</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 7}">
+      <span *ngIf="student.answers && student.answers[7]">{{student.answers[7].tijd}} sec
+        <span *ngIf="student.answers[7].answer">
+          <fa-icon [icon]="faCheck" [title]="'Cartoons opgelost'"></fa-icon>
+        </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht8">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 8</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 8}">
+      <span *ngIf="student.answers && student.answers[8]">{{student.answers[8].tijd}} sec
+        <span *ngIf="student.answers[8].answer" title="Steps/Peaks">
+          <fa-icon *ngIf="!student.answers[8].answer.cheated" [icon]="faCheck" [title]="'Doolhof opgelost'"></fa-icon>
+          <fa-icon *ngIf="student.answers[8].answer.cheated" [icon]="faFrown" [title]="'Doolhof niet opgelost'"
+                   [style.color]="'red'"></fa-icon>
+          ({{student.answers[8].answer.steps}}/{{student.answers[8].answer.peaks}})
+        </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht9">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 9</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 9}">
+      <span *ngIf="student.answers && student.answers[9]">{{student.answers[9].tijd}} sec
+        <span *ngIf="student.answers[9].answer" title="Gevonden items">
+          <fa-icon [icon]="faCheck"></fa-icon>
+          ({{student.answers[9].answer}})
+        </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht10">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 10</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 10}">
+      <span *ngIf="student.answers && student.answers[10]">{{student.answers[10].tijd}} sec
+        <span *ngIf="student.answers[10].answer">
+          <fa-icon [icon]="faCheck" [title]="'Gebaren opgelost'"></fa-icon>
+        </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opdracht11">
+    <td mat-header-cell *matHeaderCellDef>Opdracht 11</td>
+    <td mat-cell *matCellDef="let student" [ngClass]="{'active':student.currPage === 11}">
+      <span *ngIf="student.answers && student.answers[11]">{{student.answers[11].tijd}} sec
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="util">
+    <td mat-header-cell *matHeaderCellDef></td>
+    <td mat-cell *matCellDef="let student">
+      <button mat-icon-button type="button" (click)="removeStudent(student)" color="primary">
+        <fa-icon [icon]="faTrash"></fa-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
 </table>

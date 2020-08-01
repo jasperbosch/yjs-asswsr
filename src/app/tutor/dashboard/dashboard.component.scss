@@ -29,3 +29,12 @@
 td.active {
   background-color: darkgreen;
 }
+
+tr:not(.mat-header-row):hover{
+  background-color: whitesmoke;
+}
+
+table{
+  width: 80vw;
+  margin: 0 auto;
+}
