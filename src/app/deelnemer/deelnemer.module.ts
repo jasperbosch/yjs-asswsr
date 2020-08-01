@@ -9,7 +9,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {RouterModule} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {CountdownModule} from 'ngx-countdown';
 
 import {CorridorComponent} from './corridor/corridor.component';
