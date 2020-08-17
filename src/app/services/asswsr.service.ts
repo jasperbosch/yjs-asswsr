@@ -29,7 +29,7 @@ export class AsswsrService {
     this.socket$
       .subscribe(
         (message) => {
-          // console.log('Message: ', message);
+          console.log('Message: ', message);
           switch (message.soort) {
             case 'USERINPUT':
               this.router.navigate(['/']);

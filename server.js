@@ -23,6 +23,24 @@ let tutorWs;
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({server});
 
+function noop() {}
+
+function heartbeat() {
+  console.log('hartbeat');
+  this.isAlive = true;
+}
+
+const interval = setInterval(function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) return ws.terminate();
+
+    ws.isAlive = false;
+    ws.ping(noop);
+    console.log('Ping sent');
+  });
+}, 30000);
+
+
 let sendTutorMessage = function (message) {
   console.log(message);
   tutorWs.ws.send(message);
@@ -194,7 +212,12 @@ let removeTutor = function (message) {
   } else {
     for (let i = 0; i < students.length; i++) {
       if (students[i].name === message.sender) {
-        sendMessage(studentsWs[i].ws, JSON.stringify({sender: 'server', soort: 'START', content: -1, isBroadcast: false}))
+        sendMessage(studentsWs[i].ws, JSON.stringify({
+          sender: 'server',
+          soort: 'START',
+          content: -1,
+          isBroadcast: false
+        }))
         students.splice(i, 1);
         studentsWs.splice(i, 1);
         updateStudensForTutor();
@@ -208,8 +231,10 @@ let removeTutor = function (message) {
 wss.on('connection', (ws) => {
   // notifier.notify(`Made a connection!`);
 
-  let uuid;
+  ws.isAlive = true;
+  ws.on('pong', heartbeat);
 
+  let uuid;
 
   //connection is up, let's add a simple simple event
   ws.on('message', (message) => {
@@ -244,6 +269,8 @@ wss.on('connection', (ws) => {
       case 'EXIT':
         removeTutor(message);
         break;
+      case 'PONG':
+        break;
       default:
       //
     }
@@ -276,6 +303,10 @@ wss.on('connection', (ws) => {
   //send immediatly a feedback to the incoming connection
   const message = 'Hi there, I am a WebSocket server'
   sendMessage(ws, JSON.stringify(message));
+});
+
+wss.on('close', function close() {
+  clearInterval(interval);
 });
 
 
