@@ -91,7 +91,7 @@ export class Opdracht8Component implements OnInit, OnDestroy, AfterViewInit {
   klaar(): void {
     this.sendAnswer();
     // redirect
-    this.router.navigate(['deelnemer', 'opdracht9']);
+    this.router.navigate(['deelnemer', 'opdracht9i']);
   }
 
   private sendAnswer(): void {

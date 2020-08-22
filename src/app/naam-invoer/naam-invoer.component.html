@@ -1,7 +1,7 @@
 <div>
   <mat-form-field>
     <mat-label>Naam</mat-label>
-    <input matInput type="text" name="naam" id="naam" [(ngModel)]="naam" autocomplete="off">
+    <input matInput type="text" name="naam" id="naam" [(ngModel)]="naam" autocomplete="off" (keydown.enter)="verzend()" >
   </mat-form-field>
   <button mat-button type="submit" (click)="verzend()" color="primary">Verzend</button>
 </div>

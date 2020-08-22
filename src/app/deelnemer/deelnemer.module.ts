@@ -25,6 +25,17 @@ import {Opdracht7Component} from './opdracht7/opdracht7.component';
 import {Opdracht8Component} from './opdracht8/opdracht8.component';
 import {Opdracht9Component} from './opdracht9/opdracht9.component';
 import {ProgressBarComponent} from './progress-bar/progress-bar.component';
+import { Opdracht1iComponent } from './opdracht1i/opdracht1i.component';
+import { Opdracht2iComponent } from './opdracht2i/opdracht2i.component';
+import { Opdracht3iComponent } from './opdracht3i/opdracht3i.component';
+import { Opdracht4iComponent } from './opdracht4i/opdracht4i.component';
+import { Opdracht5iComponent } from './opdracht5i/opdracht5i.component';
+import { Opdracht6iComponent } from './opdracht6i/opdracht6i.component';
+import { Opdracht7iComponent } from './opdracht7i/opdracht7i.component';
+import { Opdracht8iComponent } from './opdracht8i/opdracht8i.component';
+import { Opdracht9iComponent } from './opdracht9i/opdracht9i.component';
+import { Opdracht10iComponent } from './opdracht10i/opdracht10i.component';
+import { Opdracht11iComponent } from './opdracht11i/opdracht11i.component';
 
 
 @NgModule({
@@ -41,7 +52,18 @@ import {ProgressBarComponent} from './progress-bar/progress-bar.component';
     Opdracht9Component,
     Opdracht10Component,
     Opdracht11Component,
-    ProgressBarComponent
+    ProgressBarComponent,
+    Opdracht1iComponent,
+    Opdracht2iComponent,
+    Opdracht3iComponent,
+    Opdracht4iComponent,
+    Opdracht5iComponent,
+    Opdracht6iComponent,
+    Opdracht7iComponent,
+    Opdracht8iComponent,
+    Opdracht9iComponent,
+    Opdracht10iComponent,
+    Opdracht11iComponent
   ],
   imports: [
     CommonModule,

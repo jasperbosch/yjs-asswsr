@@ -157,7 +157,7 @@ export class Opdracht5Component implements OnInit, AfterViewInit, OnDestroy {
   klaar(): void {
     this.sendAnswer();
     // redirect
-    this.router.navigate(['deelnemer', 'opdracht6']);
+    this.router.navigate(['deelnemer', 'opdracht6i']);
   }
 
   private sendAnswer(): void {

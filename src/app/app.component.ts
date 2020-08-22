@@ -22,7 +22,7 @@ export class AppComponent {
     asswsr.getUser();
   }
 
-  exit(){
+  exit(): void {
     this.asswsr.exit(this.userName);
     this.userName = undefined;
     this.tutor = false;

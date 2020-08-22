@@ -72,7 +72,7 @@ export class Opdracht10Component implements OnInit, OnDestroy {
   klaar(): void {
     this.sendAnswer();
     // redirect
-    this.router.navigate(['deelnemer', 'opdracht11']);
+    this.router.navigate(['deelnemer', 'opdracht11i']);
   }
 
   controleer(): void {

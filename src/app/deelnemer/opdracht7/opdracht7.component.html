@@ -152,6 +152,7 @@
     </div>
   </div>
 </div>
+<div class="score" *ngIf="checked">{{aantalGoed }} van 10 Goed</div>
 <button (click)="controleer()" class="controleer" *ngIf="!allesOK">Controleer</button>
 <button (click)="klaar()" class="klaar" *ngIf="allesOK">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>

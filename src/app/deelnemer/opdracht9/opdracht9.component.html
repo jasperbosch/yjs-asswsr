@@ -1,28 +1,30 @@
 <div class="container">
   <div class="badkamer" (mousemove)="onMouseMove($event)">
     <div class="img">
-      <img src="assets/img/badkamer.PNG" alt="badkamer" style="display: none;" #bathroom>
+      <img src="assets/img/badkamer.PNG" alt="badkamer" style="display: none;" #bathroom id="bathroom">
+      <canvas #hole></canvas>
     </div>
-    <div class="keyhole" style="background-position-x: -600px; background-position-y: -700px;" #keyhole></div>
+    <!--    <div class="keyhole" style="background-position-x: -600px; background-position-y: -700px;" #keyhole></div>-->
   </div>
-</div>
-<div class="invoer">
-  <div class="question">
-    <mat-form-field color="accent">
-      <mat-label>Wat ziet u? (1 woord)</mat-label>
-      <input matInput type="text"  autocomplete="false" name="item" [(ngModel)]="item" (keyup.enter)="addItem()">
-    </mat-form-field>
-    <button mat-icon-button (click)="addItem()" color="accent">
-      <fa-icon [icon]="faPlus"></fa-icon>
-    </button>
-  </div>
-  <div class="answers">
+  <div class="invoer">
+    <div class="question">
+      <mat-form-field color="primary">
+        <mat-label>Wat ziet u? (1 woord)</mat-label>
+        <input matInput type="text"  autocomplete="false" name="item" [(ngModel)]="item" (keyup.enter)="addItem()">
+      </mat-form-field>
+      <button mat-icon-button (click)="addItem()" color="accent">
+        <fa-icon [icon]="faPlus"></fa-icon>
+      </button>
+    </div>
+    <div class="answers">
     <span *ngFor="let answer of answers" class="word">
       {{answer}}
       <fa-icon [icon]="faCheck" *ngIf="words.indexOf(answer.toLowerCase())>=0"></fa-icon>
     </span>
+    </div>
   </div>
 </div>
+
 <button (click)="klaar()" class="klaar">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
 <app-progress-bar [progress]="progress"></app-progress-bar>

@@ -1,27 +1,49 @@
 import {CorridorComponent} from './corridor/corridor.component';
 import {Opdracht1Component} from './opdracht1/opdracht1.component';
 import {Opdracht10Component} from './opdracht10/opdracht10.component';
+import {Opdracht10iComponent} from './opdracht10i/opdracht10i.component';
 import {Opdracht11Component} from './opdracht11/opdracht11.component';
+import {Opdracht11iComponent} from './opdracht11i/opdracht11i.component';
+import {Opdracht1iComponent} from './opdracht1i/opdracht1i.component';
 import {Opdracht2Component} from './opdracht2/opdracht2.component';
+import {Opdracht2iComponent} from './opdracht2i/opdracht2i.component';
 import {Opdracht3Component} from './opdracht3/opdracht3.component';
+import {Opdracht3iComponent} from './opdracht3i/opdracht3i.component';
 import {Opdracht4Component} from './opdracht4/opdracht4.component';
+import {Opdracht4iComponent} from './opdracht4i/opdracht4i.component';
 import {Opdracht5Component} from './opdracht5/opdracht5.component';
+import {Opdracht5iComponent} from './opdracht5i/opdracht5i.component';
 import {Opdracht6Component} from './opdracht6/opdracht6.component';
+import {Opdracht6iComponent} from './opdracht6i/opdracht6i.component';
 import {Opdracht7Component} from './opdracht7/opdracht7.component';
+import {Opdracht7iComponent} from './opdracht7i/opdracht7i.component';
 import {Opdracht8Component} from './opdracht8/opdracht8.component';
+import {Opdracht8iComponent} from './opdracht8i/opdracht8i.component';
 import {Opdracht9Component} from './opdracht9/opdracht9.component';
+import {Opdracht9iComponent} from './opdracht9i/opdracht9i.component';
 
 export const ROUTES = [
+  {path: 'opdracht1i', component: Opdracht1iComponent},
   {path: 'opdracht1', component: Opdracht1Component},
+  {path: 'opdracht2i', component: Opdracht2iComponent},
   {path: 'opdracht2', component: Opdracht2Component},
+  {path: 'opdracht3i', component: Opdracht3iComponent},
   {path: 'opdracht3', component: Opdracht3Component},
+  {path: 'opdracht4i', component: Opdracht4iComponent},
   {path: 'opdracht4', component: Opdracht4Component},
+  {path: 'opdracht5i', component: Opdracht5iComponent},
   {path: 'opdracht5', component: Opdracht5Component},
+  {path: 'opdracht6i', component: Opdracht6iComponent},
   {path: 'opdracht6', component: Opdracht6Component},
+  {path: 'opdracht7i', component: Opdracht7iComponent},
   {path: 'opdracht7', component: Opdracht7Component},
+  {path: 'opdracht8i', component: Opdracht8iComponent},
   {path: 'opdracht8', component: Opdracht8Component},
+  {path: 'opdracht9i', component: Opdracht9iComponent},
   {path: 'opdracht9', component: Opdracht9Component},
+  {path: 'opdracht10i', component: Opdracht10iComponent},
   {path: 'opdracht10', component: Opdracht10Component},
+  {path: 'opdracht11i', component: Opdracht11iComponent},
   {path: 'opdracht11', component: Opdracht11Component},
   {path: 'corridor', component: CorridorComponent},
 ];

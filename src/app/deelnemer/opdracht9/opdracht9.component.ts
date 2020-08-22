@@ -23,15 +23,23 @@ export class Opdracht9Component implements OnInit, AfterViewInit, OnDestroy {
   faCheck = faCheck;
   faPlus = faPlus;
 
-  words = ['badkamer', 'plant', 'bloem', 'vaas', 'amaryllis', 'handdoek', 'handdoeken', 'kraan', 'bad', 'boek', 'boeken', 'spiegel',
-    'spiegels', 'tegels', 'radiator', 'verwarming', 'design radiator', 'zeep', 'zeepdispenser', 'lichtknop', 'lichtknopje', 'knop',
-    'knopje', 'kast', 'kastje', 'chivon', 'douche', 'douchedeur', 'afvoer', 'afvoerputje', 'lamp', 'lampen'];
+  // words = ['badkamer', 'plant', 'bloem', 'vaas', 'amaryllis', 'handdoek', 'handdoeken', 'kraan', 'bad', 'boek', 'boeken', 'spiegel',
+  //   'spiegels', 'tegels', 'radiator', 'verwarming', 'design radiator', 'zeep', 'zeepdispenser', 'lichtknop', 'lichtknopje', 'knop',
+  //   'knopje', 'kast', 'kastje', 'chivon', 'douche', 'douchedeur', 'afvoer', 'afvoerputje', 'lamp', 'lampen'];
+
+  words = ['badkamer'];
 
   answers: string[] = [];
   aantalOK = 0;
   item;
+  hole;
+  holeScope;
+  holeSize = 40;
+  width = 815;
+  height = 612;
 
-  @ViewChild('keyhole') keyhole: ElementRef;
+  // @ViewChild('keyhole') keyhole: ElementRef;
+  @ViewChild('hole') myHole: ElementRef;
   @ViewChild('bathroom') bathroom: ElementRef;
   @ViewChild('cd', {static: false}) private countdownC: CountdownComponent;
 
@@ -43,6 +51,7 @@ export class Opdracht9Component implements OnInit, AfterViewInit, OnDestroy {
     this.subs = interval(100).subscribe(result => {
       this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
     });
+
   }
 
   ngOnDestroy(): void {
@@ -60,35 +69,48 @@ export class Opdracht9Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+
+
+    this.holeScope = new paper.PaperScope();
+    this.holeScope.setup(this.myHole.nativeElement);
+
+    this.holeScope.activate();
+    this.myHole.nativeElement.width = this.width;
+    this.myHole.nativeElement.style.width = this.width + 'px';
+    this.myHole.nativeElement.height = this.height;
+    this.myHole.nativeElement.style.height = this.height + 'px';
+
+    const c1 = new this.holeScope.Path.Rectangle(new this.holeScope.Rectangle(0, 0, this.width, this.height));
+    c1.fillColor = new this.holeScope.Color('#000000');
+    this.hole = new this.holeScope.Path.Circle(new this.holeScope.Point(100, 100), this.holeSize);
+    this.hole.fillColor = new this.holeScope.Color('#000000');
+    this.hole.blendMode = 'xor';
+
     this.bathroom.nativeElement.style.display = 'block';
-    this.keyhole.nativeElement.style.width = this.bathroom.nativeElement.style.width;
   }
 
 
   onMouseMove(event: MouseEvent): void {
     if (this.prevEvent) {
       if (this.prevEvent !== event) {
-        // var x = parseInt(document.querySelector('.keyhole').style.backgroundPositionX);
-        // x = x + event.screenX - prevEvent.screenX;
-        let x = event.x - this.baseX - 1200;
-        if (x < -1200) {
-          x = -1200;
+        let x = event.x;
+        if (x < this.holeSize) {
+          x = this.holeSize;
         }
-        if (x > 0) {
-          x = 0;
+        if (x > (this.width - this.holeSize)) {
+          x = this.width - this.holeSize;
         }
-        this.keyhole.nativeElement.style.backgroundPositionX = x + 'px';
-
-        // var y = parseInt(document.querySelector('.keyhole').style.backgroundPositionY);
-        // y = y + event.screenY - prevEvent.screenY;
-        let y = event.y - this.baseY - 1200;
-        if (y < -1200) {
-          y = -1200;
-        }
-        if (y > 0) {
+        let y = event.y - 35;
+        if (y < 0) {
           y = 0;
         }
-        this.keyhole.nativeElement.style.backgroundPositionY = y + 'px';
+        if (y > (this.height - this.holeSize)) {
+          y = this.height - this.holeSize;
+        }
+        if (this.hole) {
+          this.hole.position = new this.holeScope.Point(x, y);
+        }
+
       }
     } else {
       const c = document.querySelector('.img').getBoundingClientRect();
@@ -101,7 +123,7 @@ export class Opdracht9Component implements OnInit, AfterViewInit, OnDestroy {
   klaar(): void {
     this.sendAnswer();
     // redirect
-    this.router.navigate(['deelnemer', 'opdracht10']);
+    this.router.navigate(['deelnemer', 'opdracht10i']);
   }
 
   private sendAnswer(): void {

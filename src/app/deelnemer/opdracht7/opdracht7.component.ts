@@ -19,6 +19,8 @@ export class Opdracht7Component implements OnInit, OnDestroy {
   progress;
   subs;
   allesOK = false;
+  aantalGoed = 0;
+  checked = false;
 
   current = 0;
 
@@ -40,7 +42,8 @@ export class Opdracht7Component implements OnInit, OnDestroy {
     ['POT', 'LOOD'],
     ['KOP', 'LOPER'],
     ['PRIKKEL', 'ARM'],
-    []
+    [],
+    ['STRIP', 'BOEK']
   ];
 
   @ViewChild('cd', {static: false}) private countdownC: CountdownComponent;
@@ -95,24 +98,35 @@ export class Opdracht7Component implements OnInit, OnDestroy {
   klaar(): void {
     this.sendAnswer();
     // redirect
-    this.router.navigate(['deelnemer', 'opdracht8']);
+    this.router.navigate(['deelnemer', 'opdracht8i']);
   }
 
   controleer(): void {
+    this.checked = true;
     this.allesOK = true;
-    let counter = 0;
+    this.aantalGoed = 0;
     this.cartoonWords.forEach((word, index) => {
       const cWord = this.oplossing[index];
       if ((word[0] === cWord[0] && word[1] === cWord[1]) || (word[0] === cWord[1] && word[1] === cWord[0])) {
-        counter++;
+        this.aantalGoed++;
       } else {
-        this.allesOK = false;
+        if (index === 3) {
+          // igv cartoon4 zijn 2 antwoorden goed, StripVerhaal(3) en StripBoek(10)
+          const ccWord = this.oplossing[10];
+          if ((word[0] === ccWord[0] && word[1] === ccWord[1]) || (word[0] === ccWord[1] && word[1] === ccWord[0])) {
+            this.aantalGoed++;
+          } else {
+            this.allesOK = false;
+          }
+        } else {
+          this.allesOK = false;
+        }
       }
     });
-    if (this.answer10.toLowerCase() === 'kijk cijfers' || this.answer10.toLowerCase() === 'cijfers kijk') {
+    if (this.answer10.toLowerCase() === 'kijk cijfers' || this.answer10.toLowerCase() === 'cijfers kijk' || this.answer10.toLowerCase() === 'kijkcijfers') {
       //
     } else {
-      counter--;
+      this.aantalGoed--;
       this.allesOK = false;
     }
     if (this.allesOK) {
