@@ -54,7 +54,7 @@ export class AsswsrService {
               } else if (nummer === 0) {
                 this.router.navigate(['deelnemer', 'corridor']);
               } else {
-                this.router.navigate(['deelnemer', 'opdracht' + nummer]);
+                this.router.navigate(['deelnemer', 'opdracht' + nummer + 'i']);
               }
               break;
           }
