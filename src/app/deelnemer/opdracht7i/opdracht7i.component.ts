@@ -15,7 +15,7 @@ export class Opdracht7iComponent implements OnInit {
   }
 
   start(): void {
-    this.router.navigate(['deelnemer', 'opdracht']);
+    this.router.navigate(['deelnemer', 'opdracht7']);
   }
 
 
