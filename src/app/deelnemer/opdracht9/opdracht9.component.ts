@@ -34,7 +34,7 @@ export class Opdracht9Component implements OnInit, AfterViewInit, OnDestroy {
   item;
   hole;
   holeScope;
-  holeSize = 40;
+  holeSize = 30;
   width = 815;
   height = 612;
 

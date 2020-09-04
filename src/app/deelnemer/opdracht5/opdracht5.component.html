@@ -9,7 +9,7 @@
 <img id="puzzel6" src="assets/img/puzz6.png" alt="" style="display:none;" #puzz6>
 <img id="puzzel7" src="assets/img/puzz7.png" alt="" style="display:none;" #puzz7>
 <div class="instructie">Double click = rotate 90 &deg;</div>
-<button (click)="klaar()" class="klaar" *ngIf="allesOK">Klaar</button>
+<button (click)="klaar()" class="klaar" *ngIf="allesOK || allesOOK">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
 <app-progress-bar [progress]="progress"></app-progress-bar>
 <div #svg></div>

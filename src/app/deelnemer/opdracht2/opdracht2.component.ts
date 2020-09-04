@@ -17,6 +17,8 @@ export class Opdracht2Component implements OnInit, AfterViewInit, OnDestroy {
   subs;
   videoUrl = environment.ASSWSR_HTTP_URL + '/assets/img/vingeralfabet2.mp4';
 
+  gespeeld = false;
+
   @ViewChild('content') content: ElementRef;
   @ViewChild('cd', {static: false}) private countdownC: CountdownComponent;
 
@@ -66,6 +68,10 @@ export class Opdracht2Component implements OnInit, AfterViewInit, OnDestroy {
     this.sendAnswer();
     // redirect
     this.router.navigate(['deelnemer', 'corridor']);
+  }
+
+  ended(): void {
+    this.gespeeld = true;
   }
 
   private sendAnswer(): void {

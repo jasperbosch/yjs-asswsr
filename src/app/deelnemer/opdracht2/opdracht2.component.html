@@ -1,11 +1,11 @@
 <div #content>
-  <video width="426" height="240" controls>
+  <video width="426" height="240" controls (ended)="ended()">
     <source src="{{videoUrl}}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <img src="assets/img/handalfabet.png" alt="handalfabet" *ngIf="showAlfabet">
 </div>
-<button (click)="toggleAlfabet()" class="ha">Toon handalfabet</button>
+<button (click)="toggleAlfabet()" class="ha" *ngIf="gespeeld">Toon handalfabet</button>
 <button (click)="klaar()" class="klaar">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
 <app-progress-bar [progress]="progress"></app-progress-bar>
