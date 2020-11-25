@@ -6,8 +6,8 @@ canvas {
 .content {
   //max-height: calc(100vh - 100px);
   //max-width: 717px;
-  overflow: auto;
-  margin: 0 auto;
+  //overflow: auto;
+  //margin: 0 auto;
 }
 
 .zoomIn,
@@ -53,4 +53,30 @@ canvas {
   right: 0%;
   top: 50%;
   margin: 50px 25px 0 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.img-zoom-container {
+  position: relative;
+}
+
+#myimage{
+  display: inline-block;
+}
+
+.img-zoom-result {
+  display: inline-block;
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width: 400px;
+  height: 400px;
+  margin-bottom: 30vh;
+  margin-left: 1vw;
+}
+
+#lowietje{
+  height: 90vh;
 }

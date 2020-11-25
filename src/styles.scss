@@ -212,3 +212,13 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  /*set the size of the lens:*/
+  width: 80px;
+  height: 80px;
+}
+
+

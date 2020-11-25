@@ -1,15 +1,7 @@
-<div class="content" [style.maxWidth.px]="width + 25" [style.height.px]="height + 25">
-  <canvas id="myCanvas"
-          [style.width.px]="width"
-          [style.height.px]="height"
-          #myCanvas
-  ></canvas>
-  <img src="assets/img/lowietje.png" alt="" id="lowietje" [style.display]="'none'">
-  <div class="charms">
-    <img width="50" height="50" src="assets/img/zoomIn.png" class="zoomIn" (click)="zoomIn()"/>
-    <img width="50" height="50" src="assets/img/zoomOut.png" class="zoomOut" (click)="zoomOut()"/>
-  </div>
+<div class="content img-zoom-container"  >
+  <img src="assets/img/lowietje2.png" alt="" id="lowietje" >
+  <div id="myresult" class="img-zoom-result"></div>
 </div>
-<button (click)="klaar()" class="klaar">Klaar</button>
+<button (click)="klaar()" class="klaar" *ngIf="answer">Klaar</button>
 <countdown [config]="{leftTime: countdown}" (event)="handleEvent($event)" #cd></countdown>
 <app-progress-bar [progress]="progress"></app-progress-bar>
