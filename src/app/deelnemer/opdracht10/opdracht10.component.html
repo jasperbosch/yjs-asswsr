@@ -1,16 +1,16 @@
 <div class="container">
   <div class="head">
     <div class="img">
-      <img src="assets/img/OK1.jpg" alt="OK1">
+      <img [src]="image0" alt="OK0" (mouseenter)="image0=imagesHoverSource[0]" (mouseout)="image0=imagesSource[0]">
     </div>
     <div class="img">
-      <img src="assets/img/OK2.jpg" alt="OK2">
+      <img [src]="image1" alt="OK1" (mouseenter)="image1=imagesHoverSource[1]" (mouseout)="image1=imagesSource[1]">
     </div>
     <div class="img">
-      <img src="assets/img/OK3.jpg" alt="OK3">
+      <img [src]="image2" alt="OK2" (mouseenter)="image2=imagesHoverSource[2]" (mouseout)="image2=imagesSource[2]">
     </div>
     <div class="img">
-      <img src="assets/img/OK4.jpg" alt="OK4">
+      <img [src]="image3" alt="OK3" (mouseenter)="image3=imagesHoverSource[3]" (mouseout)="image3=imagesSource[3]">
     </div>
   </div>
 
@@ -23,7 +23,11 @@
       class="destination"
       (cdkDropListDropped)="drop($event)"
       [cdkDropListEnterPredicate]="evenPredicate">
-      <div *ngFor="let image of imgDest[0]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+      <div *ngFor="let image of imgDest[0]" cdkDrag>
+        <img [src]="imgCurrSrc.get(image)" alt="{{image}}"
+             (mouseenter)="imgCurrSrc.set(image,imgHoverSrc.get(image))"
+             (mouseout)="imgCurrSrc.set(image,imgSrcSrc.get(image))"/>
+      </div>
     </div>
     <div
       cdkDropList
@@ -33,7 +37,11 @@
       class="destination"
       (cdkDropListDropped)="drop($event)"
       [cdkDropListEnterPredicate]="evenPredicate">
-      <div *ngFor="let image of imgDest[1]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+      <div *ngFor="let image of imgDest[1]" cdkDrag>
+        <img [src]="imgCurrSrc.get(image)" alt="{{image}}"
+             (mouseenter)="imgCurrSrc.set(image,imgHoverSrc.get(image))"
+             (mouseout)="imgCurrSrc.set(image,imgSrcSrc.get(image))"/>
+      </div>
     </div>
     <div
       cdkDropList
@@ -43,7 +51,11 @@
       class="destination"
       (cdkDropListDropped)="drop($event)"
       [cdkDropListEnterPredicate]="evenPredicate">
-      <div *ngFor="let image of imgDest[2]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+      <div *ngFor="let image of imgDest[2]" cdkDrag>
+        <img [src]="imgCurrSrc.get(image)" alt="{{image}}"
+             (mouseenter)="imgCurrSrc.set(image,imgHoverSrc.get(image))"
+             (mouseout)="imgCurrSrc.set(image,imgSrcSrc.get(image))"/>
+      </div>
     </div>
     <div
       cdkDropList
@@ -53,7 +65,11 @@
       class="destination"
       (cdkDropListDropped)="drop($event)"
       [cdkDropListEnterPredicate]="evenPredicate">
-      <div *ngFor="let image of imgDest[3]" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+      <div *ngFor="let image of imgDest[3]" cdkDrag>
+        <img [src]="imgCurrSrc.get(image)" alt="{{image}}"
+             (mouseenter)="imgCurrSrc.set(image,imgHoverSrc.get(image))"
+             (mouseout)="imgCurrSrc.set(image,imgSrcSrc.get(image))"/>
+      </div>
     </div>
   </div>
 
@@ -64,7 +80,11 @@
     [cdkDropListConnectedTo]="[img1,img2,img3,img4]"
     class="imgsrc"
     (cdkDropListDropped)="drop($event)">
-    <div *ngFor="let image of imgSrc" class="word" class="img" cdkDrag><img src="assets/img/{{image}}.jpg" alt="{{image}}"/></div>
+    <div *ngFor="let image of imgSrc" class="word" class="img" cdkDrag>
+      <img [src]="imgCurrSrc.get(image)" alt="{{image}}"
+           (mouseenter)="imgCurrSrc.set(image,imgHoverSrc.get(image))"
+           (mouseout)="imgCurrSrc.set(image,imgSrcSrc.get(image))"/>
+    </div>
   </div>
 </div>
 <button (click)="controleer()" class="controleer" *ngIf="!allesOK">Controleer</button>

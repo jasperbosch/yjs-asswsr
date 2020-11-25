@@ -13,12 +13,23 @@ import {CHECKMARK_SVG} from '../shared/checkmark.const';
 })
 export class Opdracht10Component implements OnInit, OnDestroy {
 
+  imagesSource = ['assets/img/OK1.jpg', 'assets/img/OK2.jpg', 'assets/img/OK3.jpg', 'assets/img/OK4.jpg'];
+  imagesHoverSource = ['assets/img/hand1.jpg', 'assets/img/hand1.jpg', 'assets/img/hand1.jpg', 'assets/img/hand1.jpg'];
+  image0 = this.imagesSource[0];
+  image1 = this.imagesSource[1];
+  image2 = this.imagesSource[2];
+  image3 = this.imagesSource[3];
+
+
   countdown = 6 * 60;
   progress;
   subs;
   oplossing = ['OK5', 'OK8', 'OK7', 'OK6'];
   allesOK = false;
 
+  imgHoverSrc = new Map();
+  imgSrcSrc = new Map();
+  imgCurrSrc  = new Map();
   imgSrc = ['OK5', 'OK7', 'OK6', 'OK8'];
 
   imgDest = [[], [], [], []];
@@ -29,6 +40,21 @@ export class Opdracht10Component implements OnInit, OnDestroy {
 
   constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
     this.asswsr.studentStartOpdracht(10);
+    this.imgHoverSrc.set('OK5', 'assets/img/hand2.jpg');
+    this.imgHoverSrc.set('OK7', 'assets/img/hand3.jpg');
+    this.imgHoverSrc.set('OK6', 'assets/img/hand4.jpg');
+    this.imgHoverSrc.set('OK8', 'assets/img/hand5.jpg');
+
+    this.imgSrcSrc.set('OK5', 'assets/img/OK5.jpg');
+    this.imgSrcSrc.set('OK7', 'assets/img/OK7.jpg');
+    this.imgSrcSrc.set('OK6', 'assets/img/OK6.jpg');
+    this.imgSrcSrc.set('OK8', 'assets/img/OK8.jpg');
+
+    this.imgCurrSrc.set('OK5', 'assets/img/OK5.jpg');
+    this.imgCurrSrc.set('OK7', 'assets/img/OK7.jpg');
+    this.imgCurrSrc.set('OK6', 'assets/img/OK6.jpg');
+    this.imgCurrSrc.set('OK8', 'assets/img/OK8.jpg');
+
   }
 
   ngOnInit(): void {
