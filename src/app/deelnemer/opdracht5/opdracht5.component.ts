@@ -27,7 +27,7 @@ export class Opdracht5Component implements OnInit, AfterViewInit, OnDestroy {
 
   imgWidth = 800;
   imgHeight = 582;
-  marge = 20;
+  marge = 30;
 
   rasters: paper.Raster[] = [];
 

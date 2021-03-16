@@ -1,9 +1,37 @@
 <div>
-  <audio controls>
-    <source src="assets/img/Twee konijntjes en een egeltje.mp3" type="audio/mpeg">
+  <audio controls (play)="playing=true" (pause)="playing=false">
+    <source src="assets/img/Twee konijntjes en een egeltje.mp3" type="audio/mpeg" >
     Your browser does not support the audio element.
   </audio>
 </div>
+<div cdkDropListGroup *ngIf="playing">
+  <div class="som">{{numberA}} {{operator}} {{numberB}} = </div>
+  <div
+    cdkDropList
+    [cdkDropListData]="answerList"
+    class="destination imgsrc"
+    (cdkDropListDropped)="drop($event)">
+    <span cdkDrag class="img" *ngFor="let ans of answerList">
+      {{ans}}
+    </span>
+  </div>
+  <mat-icon color="primary" *ngIf="answerList[0] && answerList[0]===answer">done</mat-icon>
+  <mat-icon style="color: red" *ngIf="answerList[0] && answerList[0]!==answer">clear</mat-icon>
+  <div
+    cdkDropList
+    [cdkDropListData]="answers"
+    class="imgsrc source"
+    (cdkDropListDropped)="drop($event)">
+    <span *ngFor="let ans of answers" class="word img" cdkDrag>
+      {{ans}}
+    </span>
+  </div>
+</div>
+
+<div>
+  Goede antwoorden: {{rightAnswers}}
+</div>
+
 <div>
   <mat-form-field>
     <mat-label>Antwoord</mat-label>

@@ -31,7 +31,7 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
   flipPath = ((this.bottom - this.top) / 2) + (this.top - this.base);
 
   myPath;
-  audio;
+  // audio;
 
   constructor(private readonly asswsr: AsswsrService, private readonly router: Router) {
     this.asswsr.studentStartOpdracht(6);
@@ -42,7 +42,7 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
       this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
     });
 
-    this.audio = new Audio('assets/beep-07.mp3');
+    // this.audio = new Audio('assets/beep-07.mp3');
   }
 
   ngOnDestroy(): void {
@@ -63,15 +63,15 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
     paper.setup(this.myCanvas.nativeElement);
     paper.view.autoUpdate = true;
 
-    const point = new paper.Point(710, 30);
-    const dots = new paper.PointText(point);
-    dots.content = '. . . . . .';
-    dots.fontSize = 270;
-    dots.strokeColor = new paper.Color(0, 0, 0);
-    dots.strokeWidth = 5;
-    dots.fillColor = new paper.Color(256, 256, 256);
-    dots.point = new paper.Point(paper.view.center.x - (dots.bounds.width / 2), 30);
-    dots.sendToBack();
+    // const point = new paper.Point(710, 30);
+    // const dots = new paper.PointText(point);
+    // dots.content = '. . . . . .';
+    // dots.fontSize = 270;
+    // dots.strokeColor = new paper.Color(0, 0, 0);
+    // dots.strokeWidth = 5;
+    // dots.fillColor = new paper.Color(256, 256, 256);
+    // dots.point = new paper.Point(paper.view.center.x - (dots.bounds.width / 2), 30);
+    // dots.sendToBack();
 
 
     const tekstX = paper.view.center.x - (1050 / 2);
@@ -127,7 +127,7 @@ export class Opdracht6Component implements OnInit, AfterViewInit, OnDestroy {
       const color = this.getColor(event.point.x, y);
       if (color[0] === 0 && color[1] === 0 && color[2] === 0) {
         // play sound
-        this.audio.play();
+        // this.audio.play();
       }
   }
 
