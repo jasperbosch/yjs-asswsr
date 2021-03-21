@@ -39,6 +39,8 @@ export class Opdracht4Component implements OnInit, AfterViewInit, OnDestroy {
   cy: number;
   result: HTMLElement;
 
+  move = true;
+
   ngOnInit(): void {
     this.subs = interval(100).subscribe(result => {
       this.progress = (((this.countdown - (result / 10)) / this.countdown) * 100);
@@ -101,31 +103,33 @@ export class Opdracht4Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   moveLens(e): void {
-    /* Prevent any other actions that may occur when moving over the image */
-    e.preventDefault();
-    /* Get the cursor's x and y positions: */
-    const pos = this.getCursorPos(e);
-    /* Calculate the position of the lens: */
-    let x = pos.x - (this.lens.offsetWidth / 2);
-    let y = pos.y - (this.lens.offsetHeight / 2);
-    /* Prevent the lens from being positioned outside the image: */
-    if (x > this.img.width - this.lens.offsetWidth) {
-      x = this.img.width - this.lens.offsetWidth;
+    if (this.move) {
+      /* Prevent any other actions that may occur when moving over the image */
+      e.preventDefault();
+      /* Get the cursor's x and y positions: */
+      const pos = this.getCursorPos(e);
+      /* Calculate the position of the lens: */
+      let x = pos.x - (this.lens.offsetWidth / 2);
+      let y = pos.y - (this.lens.offsetHeight / 2);
+      /* Prevent the lens from being positioned outside the image: */
+      if (x > this.img.width - this.lens.offsetWidth) {
+        x = this.img.width - this.lens.offsetWidth;
+      }
+      if (x < 0) {
+        x = 0;
+      }
+      if (y > this.img.height - this.lens.offsetHeight) {
+        y = this.img.height - this.lens.offsetHeight;
+      }
+      if (y < 0) {
+        y = 0;
+      }
+      /* Set the position of the lens: */
+      this.lens.style.left = x + 'px';
+      this.lens.style.top = y + 'px';
+      /* Display what the lens "sees": */
+      this.result.style.backgroundPosition = '-' + (x * this.cx) + 'px -' + (y * this.cy) + 'px';
     }
-    if (x < 0) {
-      x = 0;
-    }
-    if (y > this.img.height - this.lens.offsetHeight) {
-      y = this.img.height - this.lens.offsetHeight;
-    }
-    if (y < 0) {
-      y = 0;
-    }
-    /* Set the position of the lens: */
-    this.lens.style.left = x + 'px';
-    this.lens.style.top = y + 'px';
-    /* Display what the lens "sees": */
-    this.result.style.backgroundPosition = '-' + (x * this.cx) + 'px -' + (y * this.cy) + 'px';
   }
 
   getCursorPos(e): any {
@@ -144,13 +148,16 @@ export class Opdracht4Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkXY(event): void {
-    const pos = this.getCursorPos(event);
-    const w = this.img.width;
-    const h = this.img.height;
-    const wRatio = w / 596;
-    const hRatio = h / 843;
-    if (pos.x > 62 * wRatio && pos.x < 133 * wRatio && pos.y > 94 * hRatio && pos.y < 165 * hRatio) {
-      this.answer = true;
+    if (this.move) {
+      const pos = this.getCursorPos(event);
+      const w = this.img.width;
+      const h = this.img.height;
+      const wRatio = w / 596;
+      const hRatio = h / 843;
+      if (pos.x > 62 * wRatio && pos.x < 133 * wRatio && pos.y > 94 * hRatio && pos.y < 165 * hRatio) {
+        this.answer = true;
+      }
     }
+    this.move = !this.move;
   }
 }
