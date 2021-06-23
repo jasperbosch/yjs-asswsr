@@ -4,10 +4,12 @@ div{
 }
 
 .first {
-  width: 380px;
 }
 
 .second {
-  width:280px;
   margin-left: 20px;
+}
+
+.first, .second{
+  max-height: calc(100vh - 320px);
 }

@@ -1,7 +1,8 @@
 .container{
   display: flex;
   flex-direction: column;
-  max-width: 447px;
+  //max-width: 447px;
+  max-width: calc((((100vh - 180px) / 3) / 3 ) * 8 + 50px);
   margin: 20px auto;
   background-color: white;
   border-radius: 4px;
@@ -17,16 +18,18 @@
 }
 
 img{
-  width:100px;
-  height:150px;
+  width: calc(((100vh - 180px) / 3) / 3 * 2);
+  height: calc((100vh - 180px) / 3);
+  //width:100px;
+  //height:150px;
   padding:5px;
 }
 
 .destination{
-  min-height: 150px;
-  width: 110px;
+  min-height: calc((100vh - 180px) / 3);
+  width: calc((100vh - 120px) / 4);
 }
 
 .imgsrc{
-  min-height: 150px;
+  min-height:  calc((100vh - 180px) / 3);
 }

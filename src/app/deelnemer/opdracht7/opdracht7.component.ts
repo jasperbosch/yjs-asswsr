@@ -1,5 +1,5 @@
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {CountdownComponent} from 'ngx-countdown';
 import {interval} from 'rxjs';
@@ -11,7 +11,7 @@ import {CHECKMARK_SVG} from '../shared/checkmark.const';
   templateUrl: './opdracht7.component.html',
   styleUrls: ['./opdracht7.component.scss']
 })
-export class Opdracht7Component implements OnInit, OnDestroy {
+export class Opdracht7Component implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('carousel') carousel: ElementRef;
 
@@ -21,6 +21,8 @@ export class Opdracht7Component implements OnInit, OnDestroy {
   allesOK = false;
   aantalGoed = 0;
   checked = false;
+
+  imgWidth = 520;
 
   current = 0;
 
@@ -68,6 +70,12 @@ export class Opdracht7Component implements OnInit, OnDestroy {
       this.subs.unsubscribe();
     }
   }
+
+  ngAfterViewInit(): void {
+    this.imgWidth = this.carousel.nativeElement.querySelector('div').clientWidth;
+  }
+
+
 
 
   handleEvent(event): void {
@@ -153,7 +161,7 @@ export class Opdracht7Component implements OnInit, OnDestroy {
     if (this.current < 0) {
       this.current = 0;
     }
-    this.carousel.nativeElement.style.transform = `translate(-${this.current * 520}px,0)`;
+    this.carousel.nativeElement.style.transform = `translate(-${this.current * this.imgWidth}px,0)`;
   }
 
   next(): void {
@@ -161,7 +169,7 @@ export class Opdracht7Component implements OnInit, OnDestroy {
     if (this.current > 9) {
       this.current = 9;
     }
-    this.carousel.nativeElement.style.transform = `translate(-${this.current * 520}px,0)`;
+    this.carousel.nativeElement.style.transform = `translate(-${this.current * this.imgWidth}px,0)`;
   }
 
 }

@@ -3,22 +3,28 @@
   z-index: 1;
   display: flex;
   vertical-align: top;
-  max-width: 1050px;
   margin: 0 auto;
   background-color: white;
+  width: 80vw;
+  height: calc(100vh - 140px);
 }
 
 .cartoons {
   display: inline-block;
-  height: 600px !important;
-  width: 520px;
-  min-width: 520px;
+  width: 40vw;
+  height: calc(100vh - 140px);
+  //width: 520px;
+  //min-width: 520px;
   overflow: hidden;
 
   img {
-    width: 500px;
-    height: auto !important;
-    max-height: 533px;
+    max-width: 40vw;
+    width: 100%;
+    max-height: calc(100vh - 220px);
+    height: inherit;
+    //width: 500px;
+    //height: auto !important;
+    //max-height: 533px;
   }
 }
 
@@ -62,6 +68,7 @@
 .cartoonlist {
   min-height: 60px;
   border: 1px solid #006666;
+  width: 39vw;
 }
 
 .cdk-drag-preview {
@@ -113,26 +120,32 @@ input, input:focus {
 
 .carousel {
   display: block;
-  width: 5200px;
+  height: 100%;
+  width: 95200px;
   transition: transform 0.5s;
   transition-timing-function: ease;
 }
 
 .caroucel {
-  width: 520px;
+  width: 40vw;
   display: inline-block;
+  vertical-align: top;
 }
 
 .next {
-  position: relative;
-  transform: translate(420px, -320px);
+  position: absolute;
+  //transform: translate(420px, -320px);
   background-color: #00897b;
+  left: calc(50vw - 40px);
+  top: 40vh;
 }
 
 .prev {
-  position: relative;
-  transform: translate(0px, -320px);
+  position: absolute;
+  //transform: translate(0px, -320px);
   background-color: #00897b;
+  left: 10vw;
+  top: 40vh;
 }
 
 .score {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faCheck, faFrown, faHourglass, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faFrown, faHourglass, faTrash, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {Student} from '../../domain/student.model';
 import {AsswsrService} from '../../services/asswsr.service';
 
@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
   faCheck = faCheck;
+  faTimes = faTimes;
   faFrown = faFrown;
   faTrash = faTrash;
   faHourglass = faHourglass;

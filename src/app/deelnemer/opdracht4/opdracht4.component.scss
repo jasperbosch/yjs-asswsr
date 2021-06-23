@@ -73,10 +73,10 @@ canvas {
   /*set the size of the result div:*/
   width: 400px;
   height: 400px;
-  margin-bottom: 30vh;
+  vertical-align: top;
   margin-left: 1vw;
 }
 
 #lowietje{
-  height: 90vh;
+  height: calc(100vh - 120px);
 }
