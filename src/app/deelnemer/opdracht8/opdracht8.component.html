@@ -12,12 +12,12 @@
         <input matInput type="number" name="col" [(ngModel)]="col" min="1" max="500" autocomplete="false"/>
       </mat-form-field>
       <button mat-button color="accent" type="button" (click)="drawMaze()" [disabled]="busy">
-        New Maze
+        Nieuw doolhof
       </button>
-      <button mat-button color="accent" type="button" (click)="drawSolution()">Solution</button>
+      <button mat-button color="accent" type="button" (click)="drawSolution()">Toon oplossing</button>
       <button mat-button color="accent" type="button" (click)="toggleCover()">
-        Cover {{coverSwitch ? 'off' : 'on'}}</button>
-      Steps: {{steps}} Peaked: {{peaks}} times
+        Bedek {{coverSwitch ? 'uit' : 'aan'}}</button>
+      Stappen: {{steps}} Gespiekt: {{peaks}} keer
     </div>
     <section>
       <canvas #maze></canvas>
